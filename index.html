@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pearls Water Corporation</title>
+    <meta name="description" content="Pearls Water Corporation: water refilling station packages, reverse osmosis, mineral and alkaline systems, filters and consumables across the Philippines.">
 <link rel="icon" type="image/webp" href="/pearls-logo.webp">
 <link rel="apple-touch-icon" href="/pearls-logo.webp">
 <link rel="stylesheet" href="/src/index.css">
-   <!-- Trimmed to the two families actually referenced in CSS (--font-heading / --font-body).
-        The previous link also pulled Poppins, Roboto, Playfair Display and Lato, which were
-        never used — pure render-blocking weight on every mobile load. -->
-   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/spl4.webp" fetchpriority="high">
+
     <!-- Feather Icons for lightweight UI icons -->
-    <script src="https://unpkg.com/feather-icons"></script>
     <style>
 
         :root {
@@ -54,7 +51,7 @@ body {
     overflow-x: hidden;
 }
 .glass-panel {
-  background: linear-gradient(to right, #1B74B9, #40E0D0);
+  background: linear-gradient(to right, #1B74B9, #17819A);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
 
@@ -81,11 +78,6 @@ body {
        mobile browsers (iOS Safari in particular). Scroll performance matters
        more on the device most visitors will use, so it's scoped to larger
        screens only, where it renders smoothly. */
-}
-@media (min-width: 1024px) {
-    .hero-bg {
-        background-attachment: fixed;
-    }
 }
 
  .hero-title {
@@ -242,7 +234,7 @@ body {
 
 <!-- Logo: fixed top-left, standalone -->
 <a id="logo-link" href="#" onclick="event.preventDefault(); closeGallery(); if(document.getElementById('mobile-menu').dataset.open === 'true') toggleMobileMenu(true); window.scrollTo({top:0, behavior:'smooth'});" aria-label="Pearls Water Home" class="fixed z-50 flex items-center justify-center shrink-0 cursor-pointer" style="top:var(--logo-top); left:var(--logo-left); height:var(--logo-size); width:var(--logo-size);">
-    <img src="/pearls-logo.webp" alt="Pearls Water Logo" class="w-full h-full object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.5)]" />
+    <img src="/pearls-logo.webp" alt="Pearls Water Logo" width="235" height="235" class="w-full h-full object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.5)]" />
 </a>
 
 <!-- Navbar: fixed top, centered, independent of the logo -->
@@ -252,13 +244,13 @@ body {
 
             <!-- Desktop Menu -->
             <div class="hidden lg:flex items-center gap-8 shrink-0">
-                <a href="#packages" class="text-white/80 hover:text-deep transition-colors text-sm font-medium focus:outline-none whitespace-nowrap">
+                <a href="#packages" class="text-white hover:text-deep transition-colors text-sm font-medium focus:outline-none whitespace-nowrap">
                     Business Packages
                 </a>
-                <button onclick="openGallery()" class="text-white/80 hover:text-deep transition-colors text-sm font-medium focus:outline-none bg-transparent border-none p-0 m-0 leading-none whitespace-nowrap">
+                <button onclick="openGallery()" class="text-white hover:text-deep transition-colors text-sm font-medium focus:outline-none bg-transparent border-none p-0 m-0 leading-none whitespace-nowrap">
                     Catalog
                 </button>
-                <button onclick="openWaterRelatedModal()" class="text-white/80 hover:text-deep transition-colors text-sm font-medium focus:outline-none bg-transparent border-none p-0 m-0 leading-none whitespace-nowrap">
+                <button onclick="openWaterRelatedModal()" class="text-white hover:text-deep transition-colors text-sm font-medium focus:outline-none bg-transparent border-none p-0 m-0 leading-none whitespace-nowrap">
                     Other Water Related Product
                 </button>
                 <button onclick="openOrientationModal()" class="ml-2 px-5 py-2.5 bg-white text-deep rounded-full font-bold text-sm hover:bg-turquoise hover:text-white transition-colors focus:outline-none whitespace-nowrap">
@@ -289,14 +281,15 @@ body {
     </div>
 
     <!-- MAIN HERO -->
+     <main>
 <header class="relative flex-1 flex items-center justify-start min-h-[90vh] hero-bg pb-24 overflow-hidden">
             
     <div class="relative z-10 text-left px-4 sm:px-10 lg:px-20 max-w-3xl flex flex-col items-start lg:pt-52">
             
-  <h2 class="hero-title mb-6 text-white" style="text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.5);">
+  <h1 class="hero-title mb-6 text-white" style="text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.5);">
     <span id="hero-line1-text">Safe, Clean and</span><br/>
     <span id="hero-line2-text" class="text-turquoise" style="text-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.5);">Quality Water.</span>
-</h2>
+</h1>
 
 <p id="hero-subtext" class="text-lg md:text-2xl text-white/90 mb-14 max-w-2xl leading-relaxed font-light" style="text-shadow: 0 2px 12px rgba(0,0,0,0.5);">
     Embrace the cutting-edge design of a safer and healthier water treatment systems provider.
@@ -331,40 +324,40 @@ body {
 <div class="bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 hover:border-[#FFC857]/50 hover:shadow-2xl hover:shadow-ocean/5 transition-all duration-300 flex flex-col group">
     <div class="flex flex-col items-center text-center mb-6">
         <h3 class="text-xl sm:text-2xl font-black text-deep uppercase tracking-tight leading-tight">Reverse Osmosis</h3>
-        <p class="text-sm text-gray-400 font-medium mt-1">Purified, Family-Safe Water</p>
+        <p class="text-sm text-gray-600 font-medium mt-1">Purified, Family-Safe Water</p>
     </div>
     <div class="w-full h-px bg-gray-100 mb-6"></div>
     <div class="flex items-start gap-3 mb-7">
         <p class="text-sm text-gray-500 leading-relaxed">Crystal-clear water free from contaminants, safe for the whole household.</p>
     </div>
-    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Filtration Options</span>
+    <span class="text-[11px] font-bold text-gray-600 uppercase tracking-widest mb-3">Filtration Options</span>
     <div class="space-y-2.5 mb-8 flex-1">
         <button onclick="openImageModal('/card1/SINGLE.webp', 'Single')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">Single</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
         <button onclick="openImageModal('/card1/DOUBLE.webp', 'Double/Dual')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">Double/Dual</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
         <button onclick="openImageModal('/card1/TRIPLE.webp', 'Triple')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">Triple</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
         <button onclick="openImageModal('/card1/QUADRUPLE.webp', 'Quadruple')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">Quadruple</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
     </div>
@@ -385,18 +378,18 @@ body {
     <!-- Title -->
     <div class="flex flex-col items-center text-center mb-6 pt-3">
         <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight leading-tight">Mineral / High pH Water</h3>
-        <p class="text-sm text-white/75 font-medium mt-1">Naturally Alkaline & Refreshing</p>
+        <p class="text-sm text-white font-medium mt-1">Naturally Alkaline & Refreshing</p>
     </div>
 
     <div class="w-full h-px bg-white/15 mb-6"></div>
 
     <!-- Description -->
     <div class="flex items-start gap-3 mb-7">
-        <p class="text-sm text-white/70 leading-relaxed">Naturally alkaline & mineral-rich hydration the whole family will enjoy.</p>
+        <p class="text-sm text-white leading-relaxed">Naturally alkaline & mineral-rich hydration the whole family will enjoy.</p>
     </div>
 
     <!-- Choose Your Level -->
-    <span class="text-[11px] font-bold text-white/70 uppercase tracking-widest mb-3">Choose Your Level</span>
+    <span class="text-[11px] font-bold text-white uppercase tracking-widest mb-3">Choose Your Level</span>
 
     <!-- Filter Buttons -->
     <div class="flex flex-col items-center gap-3 mb-8">
@@ -427,40 +420,40 @@ body {
 <div class="bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 hover:border-[#FFC857]/50 hover:shadow-2xl hover:shadow-ocean/5 transition-all duration-300 flex flex-col group">
     <div class="flex flex-col items-center text-center mb-6">
         <h3 class="text-xl sm:text-2xl font-black text-deep uppercase tracking-tight leading-tight">Combination Packages</h3>
-        <p class="text-sm text-gray-400 font-medium mt-1">Best of Both Worlds</p>
+        <p class="text-sm text-gray-600 font-medium mt-1">Best of Both Worlds</p>
     </div>
     <div class="w-full h-px bg-gray-100 mb-6"></div>
     <div class="flex items-start gap-3 mb-7">
         <p class="text-sm text-gray-500 leading-relaxed">Everyone at home gets exactly the water they like, from one system.</p>
     </div>
-    <span class="text-[11px] font-bold text-gray-400 uppercase tracking-widest mb-3">Package Options</span>
+    <span class="text-[11px] font-bold text-gray-600 uppercase tracking-widest mb-3">Package Options</span>
     <div class="space-y-2.5 mb-8 flex-1">
         <button onclick="openImageModal('/card3/2N1-SINGLE.webp', '2-N-1 Single')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">2-N-1 Single</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
         <button onclick="openImageModal('/card3/2N1-DOUBLE.webp', '2-N-1 Double')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
     <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
     <div>
         <h4 class="text-sm font-bold text-deep">2-N-1 Double</h4>
-        <p class="text-[11px] text-gray-400 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+        <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
     </div>
 </button>
         <button onclick="openImageModal('/card3/3N1-SINGLE.webp', '3-N-1 Single')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">3-N-1 Single</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
         <button onclick="openImageModal('/card3/3N1-DOUBLE.webp', '3-N-1 Double')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
             <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
             <div>
                 <h4 class="text-sm font-bold text-deep">3-N-1 Double</h4>
-                <p class="text-[11px] text-gray-400 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
             </div>
         </button>
     </div>
@@ -521,7 +514,7 @@ body {
     <!-- Opportunity Section -->
     <section id="opportunity" class="py-32 relative overflow-hidden bg-[#1C6FB5]">
         <div class="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
-            <img src="/4-m.webp" alt="Background" class="w-full h-full object-cover pt-[0px] pl-[1px]">
+            <img src="/4-m.webp" alt="Background" loading="lazy" decoding="async" width="1600" height="900" class="w-full h-full object-cover">
         </div>
         <!-- Decorative light sweep -->
       <div class="absolute top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none">
@@ -531,7 +524,7 @@ body {
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
              <i data-feather="trending-up" class="w-12 h-12 text-turquoise mb-6"></i>
              <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">Start Your Own <br class="sm:hidden"/><span class="text-turquoise">Water Business</span></h2>
-             <p class="text-lg md:text-xl text-white/80 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+             <p class="text-lg md:text-xl text-white max-w-3xl mx-auto mb-10 leading-relaxed font-light">
                  The rapid growth for clean and safe drinking water need is substantial. Our company provides quality materials and services with fast income returns.
              </p>
              <div class="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
@@ -542,7 +535,7 @@ body {
              </div>
         </div>
     </section>
-
+</main>
     <!-- Footer -->
     <footer class="bg-[#0F2E52] text-gray-300 pt-20 pb-10 border-t border-white/5 relative z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -551,7 +544,7 @@ body {
                 <div class="lg:col-span-4">
                     <div class="flex items-center gap-3 mb-6">
                         <div class="h-14 w-14 shrink-0 flex items-center justify-center overflow-visible">
-                            <img src="/logo.webp" alt="Pearls Water" class="w-full h-full object-contain scale-125 drop-shadow-sm">
+                            <img src="/logo.webp" alt="Pearls Water" loading="lazy" width="56" height="56" class="w-full h-full object-contain scale-125 drop-shadow-sm">
                         </div>
                         <h2 class="flex flex-col items-center justify-center leading-none select-none">
                             <span style="font-family: 'Times New Roman', Times, serif; text-shadow: 1px 1px 2px rgba(0,212,255,0.2), -1px -1px 1px rgba(255,255,255,0.8);" class="text-ocean text-[18px] sm:text-[28px] md:text-[34px] font-bold mb-[-4px] sm:mb-[-6px] tracking-normal">Pearls</span>
@@ -561,9 +554,9 @@ body {
                     </div>
 
                     
-       <p id="footer-tagline" class="text-sm text-gray-400 mb-8 leading-relaxed max-w-sm">Premium purification technology delivering perfect, clean water. Empowering communities and businesses across the Philippines.</p>
+       <p id="footer-tagline" class="text-sm text-gray-600 mb-8 leading-relaxed max-w-sm">Premium purification technology delivering perfect, clean water. Empowering communities and businesses across the Philippines.</p>
                     <div class="flex gap-4">
-                        <a href="https://www.facebook.com/profile.php?id=61551875476595" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-400 hover:bg-turquoise hover:border-turquoise hover:text-white transition-all"><i data-feather="facebook" class="w-4 h-4"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61551875476595" aria-label="Pearls Water on Facebook" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-600 hover:bg-turquoise hover:border-turquoise hover:text-white transition-all"><i data-feather="facebook" class="w-4 h-4"></i></a>
                     </div>
                 </div>
                 
@@ -571,9 +564,9 @@ body {
                 <div class="lg:col-span-2">
                     <h4 class="text-white font-bold uppercase tracking-wider mb-6 text-sm">Explore</h4>
                     <ul class="space-y-4 text-sm font-medium">
-                        <li><a href="#" onclick="event.preventDefault(); openGallery()" class="text-gray-400 hover:text-turquoise transition-colors tracking-wide">Catalog & Shop</a></li>
-                        <li><a href="#packages" class="text-gray-400 hover:text-turquoise transition-colors tracking-wide">Business Packages</a></li>
-                        <li><a href="#opportunity" class="text-gray-400 hover:text-turquoise transition-colors tracking-wide">Opportunities</a></li>
+                        <li><a href="#" onclick="event.preventDefault(); openGallery()" class="text-gray-600 hover:text-turquoise transition-colors tracking-wide">Catalog & Shop</a></li>
+                        <li><a href="#packages" class="text-gray-600 hover:text-turquoise transition-colors tracking-wide">Business Packages</a></li>
+                        <li><a href="#opportunity" class="text-gray-600 hover:text-turquoise transition-colors tracking-wide">Opportunities</a></li>
                     </ul>
                 </div>
                 
@@ -583,21 +576,21 @@ body {
                     <ul class="space-y-4 text-sm">
                         <li class="flex items-start gap-4">
                             <i data-feather="map-pin" class="w-5 h-5 text-turquoise shrink-0 mt-0.5 opacity-80"></i>
-      <span id="footer-address" class="text-gray-400 leading-relaxed">Pearl Street, Business District<br/>Metro Manila, Philippines</span>
+      <span id="footer-address" class="text-gray-600 leading-relaxed">Pearl Street, Business District<br/>Metro Manila, Philippines</span>
                         </li>
 
                         <li class="flex items-center gap-4">
                             <i data-feather="mail" class="w-5 h-5 text-turquoise shrink-0 opacity-80"></i>
-        <span id="footer-email" class="text-gray-400">pearlswater48@gmail.com</span>
+        <span id="footer-email" class="text-gray-600">pearlswater48@gmail.com</span>
                         </li>
                         
                          <li class="flex items-center gap-4">
-                             <span class="text-gray-400">For filters and consumables call:</span>
+                             <span class="text-gray-600">For filters and consumables call:</span>
 
                          </li>
                         <li class="flex items-center gap-4">
                             <i data-feather="phone" class="w-5 h-5 text-turquoise shrink-0 opacity-80"></i>
-                            <span class="text-gray-400">+63 917 123 4567</span>
+                            <span class="text-gray-600">+63 917 123 4567</span>
                         </li>
                 
                     </ul>
@@ -606,7 +599,7 @@ body {
                 <!-- Newsletter (Span 3) 
                 <div class="lg:col-span-3">
                     <h4 class="text-white font-bold uppercase tracking-wider mb-6 text-sm">Stay Updated</h4>
-                    <p class="text-sm text-gray-400 mb-6 leading-relaxed">Subscribe to receive tech updates, exclusive promos, and business tips.</p>
+                    <p class="text-sm text-gray-600 mb-6 leading-relaxed">Subscribe to receive tech updates, exclusive promos, and business tips.</p>
                     <form class="flex" onsubmit="event.preventDefault(); alert('Subscribed!')">
                         <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/10 rounded-l-xl px-4 py-3 w-full text-sm focus:outline-none focus:border-turquoise text-white placeholder-gray-500 font-medium transition-colors" required>
                         <button type="submit" class="bg-turquoise text-white px-5 py-3 rounded-r-xl font-bold hover:bg-turquoise/80 transition-colors">
@@ -719,9 +712,9 @@ body {
                 
                 <!-- Search Bar -->
                 <div class="flex-1 relative">
-                    <i data-feather="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"></i>
+                    <i data-feather="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600"></i>
                <input type="text" id="searchInput" placeholder="Search purifiers, filters, components..." 
-                class="w-full bg-white/5 border border-white/15 rounded-full py-3 md:py-4 pl-12 pr-4 text-white placeholder:text-gray-400 focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all font-medium">
+                class="w-full bg-white/5 border border-white/15 rounded-full py-3 md:py-4 pl-12 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all font-medium">
                 </div>
                 
                 <!-- Cart/Contact Icon -->
@@ -784,7 +777,7 @@ body {
 
     <div class="flex-1 overflow-y-auto p-4 sm:p-8">
         <div class="max-w-5xl mx-auto">
-            <p class="text-white/70 text-sm sm:text-base mb-8 max-w-2xl">
+            <p class="text-white text-sm sm:text-base mb-8 max-w-2xl">
                 Complementary equipment and business ideas that pair naturally with a water refilling station - extra income streams from the same foot traffic.
             </p>
             <div id="water-related-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -845,6 +838,7 @@ body {
     </div>
 
     <!-- Shared fallback catalog (also used by admin.html) -->
+     <script src="https://unpkg.com/feather-icons"></script>
  <script src="/catalog-defaults.js"></script>
 <script src="/site-config-defaults.js"></script>
     <!-- Application Logic -->
@@ -938,7 +932,7 @@ applySiteConfig(window.DEFAULT_SITE_CONFIG);
         function productCardHTML(p) {
             return `
     <div class="relative pt-[75%] overflow-hidden bg-gray-50">
-        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544485547-5d1e67c87c7e?auto=format&fit=crop&q=80&w=600'" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105">
+        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" width="400" height="300" onerror="this.src='https://images.unsplash.com/photo-1544485547-5d1e67c87c7e?auto=format&fit=crop&q=80&w=600'" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105">
     </div>
     <div class="p-3 md:p-4 flex-1 flex flex-col bg-white">
         <span class="text-[9px] sm:text-[10px] font-bold text-ocean mb-0.5 uppercase tracking-widest leading-tight">${p.category}</span>
@@ -999,6 +993,7 @@ applySiteConfig(window.DEFAULT_SITE_CONFIG);
         // bottom of the grid comes near the viewport, load the next batch. Replaces
         // the old click-to-page pagination, which used sub-44px tap targets.
         const scrollObserver = new IntersectionObserver((entries) => {
+            if (!catalogRendered) return;
             if (entries[0].isIntersecting) {
                 appendNextBatch(searchInput.value, false);
             }
@@ -1100,14 +1095,21 @@ applySiteConfig(window.DEFAULT_SITE_CONFIG);
             searchDebounceTimer = setTimeout(() => renderProducts(value), 200);
         });
 
-        // Overlay/Modal Logic
-        const modal = document.getElementById('product-modal');
-        function openGallery() {
-            modal.classList.add('open');
-            document.body.style.overflow = 'hidden'; 
-            pushModalHistory('gallery');
-            // Small delay to allow CSS grid to render before triggering animations if desired
-        }
+        
+       // Overlay/Modal Logic
+    const modal = document.getElementById('product-modal');
+       let catalogRendered = false;
+
+
+function openGallery() {
+    if (!catalogRendered) {
+        renderProducts();
+        catalogRendered = true;
+    }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    pushModalHistory('gallery');
+}
         function closeGallery() {
     modal.classList.remove('open');
     document.body.style.overflow = '';
@@ -1121,7 +1123,7 @@ function renderWaterRelatedProducts() {
     grid.innerHTML = items.map(p => `
         <div class="product-card rounded-2xl overflow-hidden flex flex-col group cursor-pointer" onclick="showProductDetails(${p.id}, event)">
             <div class="relative pt-[65%] overflow-hidden bg-gray-50">
-                <img src="${p.images[0]}" alt="${p.name}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1544485547-5d1e67c87c7e?auto=format&fit=crop&q=80&w=600'" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105">
+                <img src="${p.images[0]}" alt="${p.name}" loading="lazy" width="600" height="400" onerror="this.src='https://images.unsplash.com/photo-1544485547-5d1e67c87c7e?auto=format&fit=crop&q=80&w=600'" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105">
             </div>
             <div class="p-5 md:p-6 flex-1 flex flex-col bg-white">
                 <h3 class="text-deep font-bold text-lg leading-tight mb-2 group-hover:text-turquoise transition-colors">${p.name}</h3>
@@ -1448,8 +1450,6 @@ function submitOrientationForm(event) {
         }
 
 document.querySelectorAll('.drag-scroll').forEach(enableDragScroll);
-
-renderProducts();
 
 
     </script>
