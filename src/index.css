@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* Replaces the tailwind.config = {...} block in index.html */
+@theme {
+  --color-deep: #123A66;
+  --color-ocean: #1C6FB5;
+  --color-turquoise: #00D4FF;
+  --color-accent: #2E86DE;
+}
+
+/* v4 changed the default border color; this keeps the v3 look */
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
