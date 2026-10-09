@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pearls Water Corporation</title>
+    <meta name="description" content="Pearls Water Corporation: water refilling station packages, reverse osmosis, mineral and alkaline systems, filters and consumables across the Philippines.">
+<link rel="icon" type="image/webp" href="/pearls-logo.webp">
+<link rel="apple-touch-icon" href="/pearls-logo.webp">
+<link rel="preload" as="image" href="/spl4.webp" fetchpriority="high">
+
+    <!-- Feather Icons for lightweight UI icons -->
+    <style>
+
+        :root {
+    --color-deep: #123A66;
+    --color-ocean: #1C6FB5;
+    --color-turquoise: #00D4FF;
+    --color-accent: #2E86DE;
+    --font-heading: 'Montserrat', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --hero-title-max: 110px;
+    --hero-bg-image: url('/spl4.webp');
+    --logo-size: 235px;
+    --logo-top: -30px;
+    --logo-left: 44px;
+}
+h1, h2, h3 { font-family: var(--font-heading), var(--font-body); }
+
+/* The logo's size/position (--logo-size, --logo-top, --logo-left) are admin-configurable
+   desktop values applied via inline styles (site-config-defaults.js / admin.html), which
+   normally outrank a plain stylesheet rule. On a narrow phone the desktop-sized logo
+   (up to 235px, pulled up -30px) is large enough to sit on top of the hero heading text.
+   !important here is intentional — it's the only way to force a smaller, safely
+   positioned logo on mobile regardless of what size the admin panel has configured. */
+@media (max-width: 640px) {
+    #logo-link {
+        top: 10px !important;
+        left: 12px !important;
+        height: 56px !important;
+        width: 56px !important;
+    }
+}
+body { 
+    font-family: var(--font-body); 
+    background-color: #cbd7e5; 
+    color: #123A66; 
+    margin: 0; 
+    padding: 0;
+    overflow-x: hidden;
+}
+.glass-panel {
+  background: linear-gradient(to right, #1B74B9, #17819A);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  /* 1. Give the border an explicit width & make it a bit stronger */
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  /* 2. Soften the shadow so it doesn’t darken the tips */
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
+
+  /* 3. Important for clean rounded gradient edges */
+  overflow: hidden;
+
+  /* optional but often helps */
+  background-clip: padding-box;
+  -webkit-background-clip: padding-box;
+}
+        
+.hero-bg {
+    background-image: var(--hero-bg-image);
+    background-color: #123A66;
+    background-size: cover;
+    background-position: center;
+    /* background-attachment: fixed causes visible scroll jank/repaint on most
+       mobile browsers (iOS Safari in particular). Scroll performance matters
+       more on the device most visitors will use, so it's scoped to larger
+       screens only, where it renders smoothly. */
+}
+
+ .hero-title {
+    font-size: min(12vw, var(--hero-title-max));
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    font-weight: 800;
+}
+        .glow-btn {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .glow-btn:hover { 
+            box-shadow: 0 0 35px rgba(0, 212, 255, 0.5); 
+            transform: translateY(-4px) scale(1.02);
+        }
+        
+        /* Hide Scrollbar for tabs but keep functionality */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Draggable horizontal scroll rows */
+        .drag-scroll {
+            cursor: grab;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+        .drag-scroll.dragging {
+            cursor: grabbing;
+            scroll-behavior: auto;
+        }
+        
+        /* Modal Transitions */
+       #product-modal { 
+    transition: opacity 0.5s ease, visibility 0.5s ease; 
+    pointer-events: none;
+}
+      #product-modal.open { 
+    opacity: 1; visibility: visible; 
+    pointer-events: auto;
+}
+  #product-modal:not(.open) { 
+    opacity: 0; visibility: hidden; 
+}
+        
+        /* Modal Content Animation */
+        .modal-content {
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(30px) scale(0.96);
+            opacity: 0;
+        }
+        #product-modal.open .modal-content {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+
+        /* Water Related Products Modal Transitions */
+#water-related-modal {
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    opacity: 0; visibility: hidden;
+    pointer-events: none;
+}
+#water-related-modal.open {
+    opacity: 1; visibility: visible;
+    pointer-events: auto;
+}
+
+        /* Product Details Modal Transitions */
+    #details-modal { 
+    transition: opacity 0.4s ease, visibility 0.4s ease; 
+    pointer-events: none;
+}
+    #details-modal.open { 
+    opacity: 1; visibility: visible; 
+    pointer-events: auto;
+}
+ #details-modal:not(.open) { 
+    opacity: 0; visibility: hidden; 
+}
+        #details-modal.open .details-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .details-content {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            transform: scale(0.92);
+            opacity: 0;
+        }
+
+        /* Product Card */
+        .product-card {
+            background: #ffffff;
+            border: 1px solid rgba(28, 111, 181, 0.08);
+            border-radius: 24px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.02), 0 2px 4px -1px rgba(0, 0, 0, 0.02);
+        }
+        .product-card:hover {
+            border-color: rgba(0,212,255,0.3);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(0,212,255,0.15), 0 10px 20px -5px rgba(0,0,0,0.05);
+        }
+        
+        /* Tab buttons */
+        .tab-btn {
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+        .tab-btn.active {
+            border-bottom-color: #00D4FF;
+            color: #00D4FF;
+        }
+        .sub-tab-btn {
+            min-height: 44px;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        /* Orientation Modal Transitions */
+ #orientation-modal {
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    pointer-events: none;
+}
+ #orientation-modal.open {
+    opacity: 1; visibility: visible;
+    pointer-events: auto;
+}
+ #orientation-modal:not(.open) {
+    opacity: 0; visibility: hidden;
+}
+        #orientation-modal.open .orientation-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+        .orientation-content {
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.5s ease;
+            transform: scale(0.94);
+            opacity: 0;
+        }
+
+        /* Image Preview Modal Transitions */
+        #image-preview-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        #image-preview-modal.open > div {
+            scale: 1;
+        }
+    </style>
+  <link rel="stylesheet" crossorigin href="/assets/index-DPM91Dyz.css">
+</head>
+<body class="antialiased min-h-screen flex flex-col">
+
+<!-- Logo: fixed top-left, standalone -->
+<a id="logo-link" href="#" onclick="event.preventDefault(); closeGallery(); if(document.getElementById('mobile-menu').dataset.open === 'true') toggleMobileMenu(true); window.scrollTo({top:0, behavior:'smooth'});" aria-label="Pearls Water Home" class="fixed z-50 flex items-center justify-center shrink-0 cursor-pointer" style="top:var(--logo-top); left:var(--logo-left); height:var(--logo-size); width:var(--logo-size);">
+    <img src="/pearls-logo.webp" alt="Pearls Water Logo" width="235" height="235" class="w-full h-full object-contain drop-shadow-[0_4px_14px_rgba(0,0,0,0.5)]" />
+</a>
+
+<!-- Navbar: fixed top, centered, independent of the logo -->
+<nav class="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 glass-panel transition-all duration-300 h-11 sm:h-12 rounded-full w-fit max-w-[calc(100%-1.5rem)] sm:max-w-[calc(100%-3rem)]">
+    <div class="px-4 sm:px-6 h-full">
+        <div class="flex justify-end items-center h-full gap-6 sm:gap-8">
+
+            <!-- Desktop Menu -->
+            <div class="hidden lg:flex items-center gap-8 shrink-0">
+                <a href="#packages" class="text-white hover:text-deep transition-colors text-sm font-medium focus:outline-none whitespace-nowrap">
+                    Business Packages
+                </a>
+                <button onclick="openGallery()" class="text-white hover:text-deep transition-colors text-sm font-medium focus:outline-none bg-transparent border-none p-0 m-0 leading-none whitespace-nowrap">
+                    Catalog
+                </button>
+                <button onclick="openWaterRelatedModal()" class="text-white hover:text-deep transition-colors text-sm font-medium focus:outline-none bg-transparent border-none p-0 m-0 leading-none whitespace-nowrap">
+                    Other Water Related Product
+                </button>
+                <button onclick="openOrientationModal()" class="ml-2 px-5 py-2.5 bg-white text-deep rounded-full font-bold text-sm hover:bg-turquoise hover:text-white transition-colors focus:outline-none whitespace-nowrap">
+                    Contact
+                </button>
+            </div>
+
+            <!-- Hamburger Mobile -->
+            <div class="lg:hidden flex items-center gap-2">
+                <button onclick="openOrientationModal()" class="px-4 py-2 bg-white text-deep rounded-full font-bold text-xs sm:text-sm hover:bg-turquoise hover:text-white transition-colors focus:outline-none whitespace-nowrap">
+                    Contact
+                </button>
+                <button id="mobile-menu-btn" onclick="event.stopPropagation(); toggleMobileMenu()" class="text-white hover:text-turquoise focus:outline-none p-2" aria-label="Toggle Menu">
+                    <i data-feather="menu" class="w-6 h-6 sm:w-7 sm:h-7"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</nav>
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" data-open="false" class="lg:hidden fixed top-16 sm:top-20 right-3 sm:right-6 z-[60] w-60 max-w-[calc(100%-1.5rem)] rounded-2xl overflow-hidden glass-panel shadow-2xl origin-top-right scale-95 opacity-0 pointer-events-none transition-all duration-200 ease-out">
+        <nav class="flex flex-col divide-y divide-white/10">
+            <a href="#packages" onclick="toggleMobileMenu(true)" class="px-5 py-4 text-white hover:bg-white/10 hover:text-turquoise transition-colors text-sm font-bold uppercase tracking-wider">Packages</a>
+            <button onclick="toggleMobileMenu(true); openGallery()" class="px-5 py-4 text-left text-white hover:bg-white/10 hover:text-turquoise transition-colors text-sm font-bold uppercase tracking-wider">Catalog</button>
+            <button onclick="toggleMobileMenu(true); openWaterRelatedModal()" class="px-5 py-4 text-left text-white hover:bg-white/10 hover:text-turquoise transition-colors text-sm font-bold uppercase tracking-wider">Other Related Water Products</button>
+            <button onclick="toggleMobileMenu(true); openOrientationModal()" class="px-5 py-4 text-left text-white hover:bg-white/10 hover:text-turquoise transition-colors text-sm font-bold uppercase tracking-wider">Contact</button>
+        </nav>
+    </div>
+
+    <!-- MAIN HERO -->
+     <main>
+<header class="relative flex-1 flex items-center justify-start min-h-[90vh] hero-bg pb-24 overflow-hidden">
+            
+    <div class="relative z-10 text-left px-4 sm:px-10 lg:px-20 max-w-3xl flex flex-col items-start lg:pt-52">
+            
+  <h1 class="hero-title mb-6 text-white" style="text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.5);">
+    <span id="hero-line1-text">Safe, Clean and</span><br/>
+    <span id="hero-line2-text" class="text-turquoise" style="text-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.5);">Quality Water.</span>
+</h1>
+
+<p id="hero-subtext" class="text-lg md:text-2xl text-white/90 mb-14 max-w-2xl leading-relaxed font-light" style="text-shadow: 0 2px 12px rgba(0,0,0,0.5);">
+    Embrace the cutting-edge design of a safer and healthier water treatment systems provider.
+</p>
+            
+            <div class="flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-6 w-full">
+                <!-- Primary CTA -->
+           <button onclick="openGallery()" class="glow-btn border-none outline-none overflow-hidden transform-gpu px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-ocean to-turquoise text-white rounded-full font-bold text-base sm:text-lg uppercase tracking-wider transition-all w-full sm:w-auto shadow-lg shadow-turquoise/40 flex justify-center items-center">
+    <span id="hero-primary-btn-label">Check Our Products</span>
+</button>
+
+<button onclick="openOrientationModal('General Quote Request')" class="px-8 sm:px-10 py-4 sm:py-5 bg-white/5 backdrop-blur-sm border-2 border-white/30 hover:border-white hover:bg-white hover:text-ocean text-white rounded-full font-bold text-base sm:text-lg uppercase tracking-wider transition-all w-full sm:w-auto hover:-translate-y-1 shadow-lg flex justify-center items-center">
+    <span id="hero-secondary-btn-label">Get a Quote</span>
+</button>
+            </div>
+        </div>
+    </header>
+        
+
+<!-- Packages Section -->
+    <section id="packages" class="py-24 bg-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-black text-deep mb-4 uppercase tracking-wider">Business Packages</h2>
+                <p class="text-lg text-gray-500 max-w-2xl mx-auto flex items-center justify-center gap-2">
+                    Complete turnkey solutions to start your business  
+                </p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
+
+<!-- Card 1: Reverse Osmosis - Purified -->
+<div class="bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 hover:border-[#FFC857]/50 hover:shadow-2xl hover:shadow-ocean/5 transition-all duration-300 flex flex-col group">
+    <div class="flex flex-col items-center text-center mb-6">
+        <h3 class="text-xl sm:text-2xl font-black text-deep uppercase tracking-tight leading-tight">Reverse Osmosis</h3>
+        <p class="text-sm text-gray-600 font-medium mt-1">Purified, Family-Safe Water</p>
+    </div>
+    <div class="w-full h-px bg-gray-100 mb-6"></div>
+    <div class="flex items-start gap-3 mb-7">
+        <p class="text-sm text-gray-500 leading-relaxed">Crystal-clear water free from contaminants, safe for the whole household.</p>
+    </div>
+    <span class="text-[11px] font-bold text-gray-600 uppercase tracking-widest mb-3">Filtration Options</span>
+    <div class="space-y-2.5 mb-8 flex-1">
+        <button onclick="openImageModal('/card1/SINGLE.webp', 'Single')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">Single</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+        <button onclick="openImageModal('/card1/DOUBLE.webp', 'Double/Dual')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">Double/Dual</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+        <button onclick="openImageModal('/card1/TRIPLE.webp', 'Triple')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">Triple</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+        <button onclick="openImageModal('/card1/QUADRUPLE.webp', 'Quadruple')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">Quadruple</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Purified, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+    </div>
+    <button onclick="openOrientationModal('Reverse Osmosis - Purified Package Inquiry', ['Water Refilling Station'])"
+            class="w-full py-4 rounded-full border-2 border-ocean text-ocean font-bold uppercase tracking-wide text-sm hover:bg-ocean hover:text-white transition-colors flex items-center justify-center gap-2 group/btn">
+        Inquire Now <i data-feather="arrow-right" class="w-4 h-4 transition-transform group-hover/btn:translate-x-1"></i>
+    </button>
+</div>
+
+<!-- Card 2: Mineral / High pH Water (Most Popular) -->
+<div class="bg-gradient-to-b from-[#1B74B9] to-[#40E0D0] text-white rounded-3xl p-8 sm:p-10 border border-white/15 transform md:-translate-y-4 shadow-xl shadow-[#1B74B9]/20 relative flex flex-col group">
+    
+    <!-- Badge -->
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-gradient-to-r from-[#32CD32] to-[#228B22] text-[#123A66] text-[10px] font-black uppercase tracking-widest px-4 py-1.5 rounded-full shadow-md shadow-black/10 whitespace-nowrap flex items-center gap-1.5">
+        <i data-feather="heart" class="w-3 h-3 text-[#123A66]"></i> Family Favorite
+    </div>
+
+    <!-- Title -->
+    <div class="flex flex-col items-center text-center mb-6 pt-3">
+        <h3 class="text-xl sm:text-2xl font-black uppercase tracking-tight leading-tight">Mineral / High pH Water</h3>
+        <p class="text-sm text-white font-medium mt-1">Naturally Alkaline & Refreshing</p>
+    </div>
+
+    <div class="w-full h-px bg-white/15 mb-6"></div>
+
+    <!-- Description -->
+    <div class="flex items-start gap-3 mb-7">
+        <p class="text-sm text-white leading-relaxed">Naturally alkaline & mineral-rich hydration the whole family will enjoy.</p>
+    </div>
+
+    <!-- Choose Your Level -->
+    <span class="text-[11px] font-bold text-white uppercase tracking-widest mb-3">Choose Your Level</span>
+
+    <!-- Filter Buttons -->
+    <div class="flex flex-col items-center gap-3 mb-8">
+        <button onclick="openImageModal('/card2/REGULAR.webp', 'Regular')"
+            class="filter-btn w-56 text-center py-3 px-5 rounded-full bg-white/10 border border-white/25 text-white text-sm font-bold uppercase tracking-wide hover:bg-white/20 transition-colors">
+            Regular
+        </button>
+
+        <button onclick="openImageModal('/card2/PREMIUM%20AND%20ULTRAFINE.webp', 'Premium / Ultrafine')"
+            class="filter-btn w-56 text-center py-3 px-5 rounded-full bg-white/10 border border-white/25 text-white text-sm font-bold uppercase tracking-wide hover:bg-white/20 transition-colors">
+            Premium/Ultrafine
+        </button>
+
+        <button onclick="openImageModal('/card2/2N1.webp', '2N1')"
+            class="filter-btn w-56 text-center py-3 px-5 rounded-full bg-white/10 border border-white/25 text-white text-sm font-bold uppercase tracking-wide hover:bg-white/20 transition-colors">
+            2N1
+        </button>
+    </div>
+
+    <!-- Inquire Button -->
+    <button onclick="openOrientationModal('Mineral / High pH Water Package Inquiry', ['Water Refilling Station'])"
+            class="w-full py-4 rounded-full bg-gradient-to-r from-[#98fb98] to-[#32CD32] text-[#123A66] font-bold uppercase tracking-wide text-sm hover:opacity-90 transition-opacity shadow-md flex items-center justify-center gap-2 group/btn mt-auto">
+        Inquire Now 
+        <i data-feather="arrow-right" class="w-4 h-4 transition-transform group-hover/btn:translate-x-1"></i>
+    </button>
+</div>
+<!-- Card 3: Combination Packages -->
+<div class="bg-white rounded-3xl p-8 sm:p-10 border border-gray-200 hover:border-[#FFC857]/50 hover:shadow-2xl hover:shadow-ocean/5 transition-all duration-300 flex flex-col group">
+    <div class="flex flex-col items-center text-center mb-6">
+        <h3 class="text-xl sm:text-2xl font-black text-deep uppercase tracking-tight leading-tight">Combination Packages</h3>
+        <p class="text-sm text-gray-600 font-medium mt-1">Best of Both Worlds</p>
+    </div>
+    <div class="w-full h-px bg-gray-100 mb-6"></div>
+    <div class="flex items-start gap-3 mb-7">
+        <p class="text-sm text-gray-500 leading-relaxed">Everyone at home gets exactly the water they like, from one system.</p>
+    </div>
+    <span class="text-[11px] font-bold text-gray-600 uppercase tracking-widest mb-3">Package Options</span>
+    <div class="space-y-2.5 mb-8 flex-1">
+        <button onclick="openImageModal('/card3/2N1-SINGLE.webp', '2-N-1 Single')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">2-N-1 Single</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+        <button onclick="openImageModal('/card3/2N1-DOUBLE.webp', '2-N-1 Double')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+    <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+    <div>
+        <h4 class="text-sm font-bold text-deep">2-N-1 Double</h4>
+        <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+    </div>
+</button>
+        <button onclick="openImageModal('/card3/3N1-SINGLE.webp', '3-N-1 Single')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">3-N-1 Single</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+        <button onclick="openImageModal('/card3/3N1-DOUBLE.webp', '3-N-1 Double')" class="w-full flex items-start gap-3 bg-gray-50 rounded-2xl px-4 py-3 text-left hover:bg-gray-100 transition-colors cursor-pointer">
+            <span class="w-1.5 h-1.5 rounded-full bg-ocean/40 shrink-0 mt-1.5"></span>
+            <div>
+                <h4 class="text-sm font-bold text-deep">3-N-1 Double</h4>
+                <p class="text-[11px] text-gray-600 leading-relaxed">Special Basic, Deluxe, Economy, Premium, Executive</p>
+            </div>
+        </button>
+    </div>
+    <button onclick="openOrientationModal('Combination Packages Inquiry', ['Water Refilling Station'])"
+            class="w-full py-4 rounded-full border-2 border-ocean text-ocean font-bold uppercase tracking-wide text-sm hover:bg-ocean hover:text-white transition-colors flex items-center justify-center gap-2 group/btn">
+        Inquire Now <i data-feather="arrow-right" class="w-4 h-4 transition-transform group-hover/btn:translate-x-1"></i>
+    </button>
+</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Us Section -->
+    <section id="why-us" class="py-24 bg-gray-50 border-[0px]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-16 items-center pt-[6px] pl-[17px]">
+                <div class="flex-1 space-y-8">
+                    <div class="inline-block px-4 py-1.5 bg-turquoise/10 text-turquoise text-xs font-bold tracking-widest uppercase">
+                        Why Choose Pearls Water
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl lg:text-5xl font-black text-deep leading-[1.1] uppercase tracking-wide">
+                        Engineered for <br/>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-ocean to-turquoise">Durability & Quality</span>
+                    </h2>
+                    <p class="text-lg text-gray-600 leading-relaxed max-w-lg">
+                        We just don't sell water filters, we design and create from low capacity to high-volume production capacity and adaptable design with competitive result.
+                    </p>
+                    <h3 class="text-lg font-bold text-deep mb-4">After-sales Support:</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-4">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-white rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 text-ocean shrink-0">
+                                <i data-feather="shield" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-deep mb-2">After-sales Service Technician</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed">Stand by for prompt servicing.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-white rounded-xl shadow-[0_4px_20px_-4px_rgba(0,0,0,0.05)] border border-gray-100 text-ocean shrink-0">
+                                <i data-feather="tool" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-deep mb-2">After-sales Service Staff</h4>
+                                <p class="text-sm text-gray-500 leading-relaxed">Receive servicing concerns and orders.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              <!--  <div class="flex-1 w-full lg:w-auto relative group">
+                    <div class="absolute inset-0 bg-gradient-to-tr from-turquoise/20 to-ocean/20 rounded-[2.5rem] transform rotate-3 scale-105 transition-transform duration-700 group-hover:rotate-6"></div>
+                    <img src="/hatdog.webp" alt="Water System Technology" class="relative rounded-[2.5rem] object-cover w-full h-[400px] lg:h-[500px] shadow-2xl z-10 border-4 border-white transition-transform duration-700 group-hover:scale-[1.01]">
+                </div>
+            </div> -->
+        </div>
+    </section>
+
+    <!-- Opportunity Section -->
+    <section id="opportunity" class="py-32 relative overflow-hidden bg-[#1C6FB5]">
+        <div class="absolute inset-0 z-0 opacity-20 mix-blend-overlay">
+            <img src="/4-m.webp" alt="Background" loading="lazy" decoding="async" width="1600" height="900" class="w-full h-full object-cover">
+        </div>
+        <!-- Decorative light sweep -->
+      <div class="absolute top-0 left-0 w-full h-full z-0 overflow-hidden pointer-events-none">
+            <div class="absolute -top-[50%] -left-[10%] w-[120%] h-[200%] bg-white/5 opacity-50 transform rotate-12 origin-center pointer-events-none"></div>
+        </div>
+        
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
+             <i data-feather="trending-up" class="w-12 h-12 text-turquoise mb-6"></i>
+             <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-6 uppercase tracking-tight">Start Your Own <br class="sm:hidden"/><span class="text-turquoise">Water Business</span></h2>
+             <p class="text-lg md:text-xl text-white max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+                 The rapid growth for clean and safe drinking water need is substantial. Our company provides quality materials and services with fast income returns.
+             </p>
+             <div class="flex flex-col sm:flex-row justify-center gap-4 w-full sm:w-auto">
+                 <button onclick="openOrientationModal('Free Business Orientation Session')" class="px-8 py-4 sm:py-5 bg-white text-[#1C6FB5] font-bold rounded-full uppercase tracking-wider hover:bg-gray-100 transition-transform hover:-translate-y-1 shadow-[0_10px_30px_-10px_rgba(255,255,255,0.3)]">
+                     Request for a one on one educational business orientation!
+                 </button>
+    
+             </div>
+        </div>
+    </section>
+</main>
+    <!-- Footer -->
+    <footer class="bg-[#0F2E52] text-gray-300 pt-20 pb-10 border-t border-white/5 relative z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-8 mb-16">
+                <!-- Brand (Span 4) -->
+                <div class="lg:col-span-4">
+                    <div class="flex items-center gap-3 mb-6">
+                        <div class="h-14 w-14 shrink-0 flex items-center justify-center overflow-visible">
+                            <img src="/logo.webp" alt="Pearls Water" loading="lazy" width="56" height="56" class="w-full h-full object-contain scale-125 drop-shadow-sm">
+                        </div>
+                        <h2 class="flex flex-col items-center justify-center leading-none select-none">
+                            <span style="font-family: 'Times New Roman', Times, serif; text-shadow: 1px 1px 2px rgba(0,212,255,0.2), -1px -1px 1px rgba(255,255,255,0.8);" class="text-ocean text-[18px] sm:text-[28px] md:text-[34px] font-bold mb-[-4px] sm:mb-[-6px] tracking-normal">Pearls</span>
+                            <span style="font-family: 'Times New Roman', Times, serif; text-shadow: 1px 1px 2px rgba(0,212,255,0.2), -1px -1px 1px rgba(255,255,255,0.8);" class="text-ocean text-[18px] sm:text-[28px] md:text-[34px] font-bold mb-[2px] sm:mb-[4px] tracking-normal">Water</span>
+                            <span style="font-family: 'Montserrat', sans-serif;" class="text-turquoise text-[6px] sm:text-[9px] md:text-[11px] font-semibold uppercase tracking-[0.2em] sm:tracking-[0.25em]">CORPORATION</span>
+                        </h2>
+                    </div>
+
+                    
+       <p id="footer-tagline" class="text-sm text-gray-600 mb-8 leading-relaxed max-w-sm">Premium purification technology delivering perfect, clean water. Empowering communities and businesses across the Philippines.</p>
+                    <div class="flex gap-4">
+                        <a href="https://www.facebook.com/profile.php?id=61551875476595" aria-label="Pearls Water on Facebook" target="_blank" rel="noopener noreferrer" class="w-10 h-10 rounded-full border border-white/10 flex items-center justify-center text-gray-600 hover:bg-turquoise hover:border-turquoise hover:text-white transition-all"><i data-feather="facebook" class="w-4 h-4"></i></a>
+                    </div>
+                </div>
+                
+                <!-- Quick Links (Span 2) -->
+                <div class="lg:col-span-2">
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-6 text-sm">Explore</h4>
+                    <ul class="space-y-4 text-sm font-medium">
+                        <li><a href="#" onclick="event.preventDefault(); openGallery()" class="text-gray-600 hover:text-turquoise transition-colors tracking-wide">Catalog & Shop</a></li>
+                        <li><a href="#packages" class="text-gray-600 hover:text-turquoise transition-colors tracking-wide">Business Packages</a></li>
+                        <li><a href="#opportunity" class="text-gray-600 hover:text-turquoise transition-colors tracking-wide">Opportunities</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact (Span 3) -->
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-6 text-sm">Get in Touch</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-4">
+                            <i data-feather="map-pin" class="w-5 h-5 text-turquoise shrink-0 mt-0.5 opacity-80"></i>
+      <span id="footer-address" class="text-gray-600 leading-relaxed">Pearl Street, Business District<br/>Metro Manila, Philippines</span>
+                        </li>
+
+                        <li class="flex items-center gap-4">
+                            <i data-feather="mail" class="w-5 h-5 text-turquoise shrink-0 opacity-80"></i>
+        <span id="footer-email" class="text-gray-600">pearlswater48@gmail.com</span>
+                        </li>
+                        
+                         <li class="flex items-center gap-4">
+                             <span class="text-gray-600">For filters and consumables call:</span>
+
+                         </li>
+                        <li class="flex items-center gap-4">
+                            <i data-feather="phone" class="w-5 h-5 text-turquoise shrink-0 opacity-80"></i>
+                            <span class="text-gray-600">+63 917 123 4567</span>
+                        </li>
+                
+                    </ul>
+                </div>
+                
+                <!-- Newsletter (Span 3) 
+                <div class="lg:col-span-3">
+                    <h4 class="text-white font-bold uppercase tracking-wider mb-6 text-sm">Stay Updated</h4>
+                    <p class="text-sm text-gray-600 mb-6 leading-relaxed">Subscribe to receive tech updates, exclusive promos, and business tips.</p>
+                    <form class="flex" onsubmit="event.preventDefault(); alert('Subscribed!')">
+                        <input type="email" placeholder="Email Address" class="bg-white/5 border border-white/10 rounded-l-xl px-4 py-3 w-full text-sm focus:outline-none focus:border-turquoise text-white placeholder-gray-500 font-medium transition-colors" required>
+                        <button type="submit" class="bg-turquoise text-white px-5 py-3 rounded-r-xl font-bold hover:bg-turquoise/80 transition-colors">
+                            <i data-feather="arrow-right" class="w-5 h-5"></i>
+                        </button>
+                    </form>
+                    -->
+                </div>
+            </div>
+            
+            <div class="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                <p class="text-sm text-gray-500 font-medium">&copy; 2026 Pearls Water. All Rights Reserved.</p>
+                <div class="flex gap-6 text-sm text-gray-500 font-medium">
+                    <a href="/privacy-policy.html" class="hover:text-white transition-colors">Privacy Policy</a>
+                    <a href="/terms-of-service.html" class="hover:text-white transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Orientation Request Modal -->
+    <div id="orientation-modal" class="fixed inset-0 z-[120] flex items-center justify-center bg-deep/80 backdrop-blur-sm p-4 sm:p-6" onclick="closeOrientationModal(event)">
+        <div class="orientation-content bg-white w-full max-w-lg max-h-[92vh] overflow-y-auto rounded-3xl shadow-2xl relative" onclick="event.stopPropagation()">
+            <button onclick="closeOrientationModal()" class="absolute top-4 right-4 z-10 bg-gray-50 p-2 rounded-full text-deep hover:bg-gray-100 transition shadow-sm" aria-label="Close">
+                <i data-feather="x" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </button>
+
+            <div class="p-6 sm:p-10">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs font-bold uppercase tracking-widest text-turquoise">Free Consultation</span>
+                </div>
+                <h2 class="text-2xl sm:text-3xl font-black text-deep mb-2 uppercase tracking-wide leading-tight">Schedule Your Free Business Orientation</h2>
+                <p class="text-sm text-gray-500 mb-8 leading-relaxed">Fill out the form below and our team will reach out to confirm your session.</p>
+
+                <form id="orientation-form" onsubmit="submitOrientationForm(event)" class="space-y-5">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                        <div>
+                            <label for="orient-firstname" class="block text-xs font-bold text-ocean uppercase tracking-widest mb-2">First Name</label>
+                            <input type="text" id="orient-firstname" name="firstName" required
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-deep focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all">
+                        </div>
+                        <div>
+                            <label for="orient-lastname" class="block text-xs font-bold text-ocean uppercase tracking-widest mb-2">Last Name</label>
+                            <input type="text" id="orient-lastname" name="lastName" required
+                                class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-deep focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="orient-contact" class="block text-xs font-bold text-ocean uppercase tracking-widest mb-2">Contact No.</label>
+                        <input type="tel" id="orient-contact" name="contactNo" required placeholder="09XX XXX XXXX"
+                        inputmode="numeric" maxlength="11" pattern="[0-9]{11}" title="Please enter exactly 11 digits"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 11);"
+                        class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-deep focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all">
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-bold text-ocean uppercase tracking-widest mb-2">Products to Inquire</label>
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                            <label class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm text-deep cursor-pointer hover:border-turquoise transition-all">
+                                <input type="checkbox" name="productsInquiry" value="Water Refilling Station" class="w-4 h-4 accent-turquoise shrink-0">
+                                <span>Water Refilling Station</span>
+                            </label>
+                            <label class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm text-deep cursor-pointer hover:border-turquoise transition-all">
+                                <input type="checkbox" name="productsInquiry" value="Laundry Business" class="w-4 h-4 accent-turquoise shrink-0">
+                                <span>Laundry Business</span>
+                            </label>
+                            <label class="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-3 text-sm text-deep cursor-pointer hover:border-turquoise transition-all">
+                                <input type="checkbox" name="productsInquiry" value="Ice Maker Machine" class="w-4 h-4 accent-turquoise shrink-0">
+                                <span>Ice Maker Machine</span>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label for="orient-schedule" class="block text-xs font-bold text-ocean uppercase tracking-widest mb-2">Schedule for Orientation</label>
+                        <input type="datetime-local" id="orient-schedule" name="schedule" required
+                            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-deep focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all">
+                    </div>
+
+                    <div>
+                        <label for="orient-message" class="block text-xs font-bold text-ocean uppercase tracking-widest mb-2">Message</label>
+                        <textarea id="orient-message" name="message" rows="4" placeholder="Tell us more about your business goals or questions..."
+                            class="w-full bg-gray-50 border border-gray-200 rounded-xl px-4 py-3 text-sm text-deep focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all resize-none"></textarea>
+                    </div>
+
+                    <div id="orient-status" class="hidden text-sm font-medium rounded-xl px-4 py-3"></div>
+
+                    <button type="submit" id="orient-submit-btn"
+                        class="w-full py-4 rounded-xl bg-gradient-to-r from-ocean to-turquoise text-white font-bold uppercase tracking-wide hover:opacity-90 transition-opacity shadow-lg shadow-turquoise/20 flex items-center justify-center gap-2">
+                        <span id="orient-submit-label">Submit Request</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Gallery Modal (Shopping App Style) -->
+    <!-- Fixed over the entire screen with a high z-index -->
+    <div id="product-modal" class="fixed inset-0 z-[100] flex flex-col bg-[#1C6FB5] backdrop-blur-md">
+        
+        <!-- Modal Header / Search Area -->
+   <div class="bg-[#1C6FB5]/95 border-b border-white/10 pt-6 pb-5 px-4 sticky top-0 z-20 shadow-sm">
+            <div class="max-w-7xl mx-auto flex items-center gap-4">
+                
+                <!-- Close Button -->
+              <button onclick="closeGallery()" class="text-white hover:text-turquoise p-2 rounded-full hover:bg-white/10 transition-colors shrink-0">
+                    <i data-feather="x" class="w-6 h-6 md:w-8 md:h-8"></i>
+                </button>
+                
+                <!-- Search Bar -->
+                <div class="flex-1 relative">
+                    <i data-feather="search" class="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-600"></i>
+               <input type="text" id="searchInput" placeholder="Search purifiers, filters, components..." 
+                class="w-full bg-white/5 border border-white/15 rounded-full py-3 md:py-4 pl-12 pr-4 text-white placeholder:text-gray-600 focus:outline-none focus:border-turquoise focus:ring-1 focus:ring-turquoise transition-all font-medium">
+                </div>
+                
+                <!-- Cart/Contact Icon -->
+            <button onclick="openOrientationModal()" title="Contact Us" class="relative p-2 text-white font-bold uppercase tracking-wider text-sm hover:text-turquoise transition-colors shrink-0 hidden sm:block">
+                    Contact Us
+                </button>
+            </div>
+            
+            <!-- Horizontal Filter Tabs -->
+            <div class="max-w-7xl mx-auto mt-4 sm:mt-6 flex overflow-x-auto hide-scrollbar drag-scroll gap-5 sm:gap-10 border-b border-white/10 px-2 lg:px-8 pb-1">
+                <button class="tab-btn active pb-2 sm:pb-3 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap text-turquoise shrink-0 transition-colors" data-category="All" onclick="filterCategory('All', this)">All Products</button>
+                <button class="tab-btn pb-2 sm:pb-3 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap text-white/50 hover:text-turquoise shrink-0 transition-colors" data-category="Purified Water Systems" onclick="filterCategory('Purified Water Systems', this)">Purified</button>
+                <button class="tab-btn pb-2 sm:pb-3 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap text-white/50 hover:text-turquoise shrink-0 transition-colors" data-category="Mineral & High pH" onclick="filterCategory('Mineral & High pH', this)">Mineral & High pH</button>
+                <button class="tab-btn pb-2 sm:pb-3 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap text-white/50 hover:text-turquoise shrink-0 transition-colors" data-category="Consumables" onclick="filterCategory('Consumables', this)">Consumables</button>
+                <button class="tab-btn pb-2 sm:pb-3 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap text-white/50 hover:text-turquoise shrink-0 transition-colors" data-category="Water Related Products" onclick="filterCategory('Water Related Products', this)">Water Related Products</button>
+                <button class="tab-btn pb-2 sm:pb-3 text-xs sm:text-sm font-bold uppercase tracking-wider whitespace-nowrap text-white/50 hover:text-turquoise shrink-0 transition-colors" data-category="Services" onclick="filterCategory('Services', this)">Services</button>
+            </div>
+
+            <!-- Consumables Sub-Category Tabs (shown only when Consumables is active) -->
+            <div id="subcategory-tabs" class="hidden max-w-7xl mx-auto mt-3 flex overflow-x-auto hide-scrollbar drag-scroll gap-4 sm:gap-6 px-2 lg:px-8 pb-1">
+                <button class="sub-tab-btn active px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-ocean text-white shrink-0 transition-colors" onclick="filterSubCategory('All', this)">All</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Wall Hung Filters', this)">Wall Hung Filters</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Sediment Filters', this)">Sediment Filters</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Carbon Block', this)">Carbon Block</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('UV Sterilizer', this)">UV Sterilizer</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Elements', this)">Elements</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Heads', this)">Heads</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('FRP Tanks', this)">FRP Tanks</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('RO Membrane', this)">RO Membrane</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Filter Cartridge', this)">Filter Cartridge</button>
+                <button class="sub-tab-btn px-3 py-1.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider whitespace-nowrap bg-white/10 text-white/60 hover:bg-white/20 shrink-0 transition-colors" onclick="filterSubCategory('Accessories', this)">Accessories</button>
+            </div>
+        </div>
+        <!-- Scrollable Product Grid Area -->
+        <div class="flex-1 overflow-y-auto p-4 md:p-8 modal-content">
+            <div class="max-w-7xl mx-auto">
+                <div id="product-grid" class="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+                    <!-- Products will be injected here via JavaScript -->
+                </div>
+                <div id="infinite-scroll-status" class="py-10 text-center text-white/50 text-sm font-medium"></div>
+                <div id="scroll-sentinel" class="h-4 w-full"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Other Water Related Products Modal (separate showcase, not the catalog) -->
+<div id="water-related-modal" class="fixed inset-0 z-[105] flex flex-col bg-[#123A66] backdrop-blur-md">
+    <div class="bg-[#123A66]/95 border-b border-white/10 pt-6 pb-5 px-4 sm:px-8 sticky top-0 z-20 shadow-sm">
+        <div class="max-w-5xl mx-auto flex items-center justify-between gap-4">
+            <div>
+                <span class="text-xs font-bold uppercase tracking-widest text-turquoise">Beyond Water Systems</span>
+                <h2 class="text-2xl sm:text-3xl font-black text-white uppercase tracking-wide mt-1">Other Water Related Products</h2>
+            </div>
+            <button onclick="closeWaterRelatedModal()" class="text-white hover:text-turquoise p-2 rounded-full hover:bg-white/10 transition-colors shrink-0">
+                <i data-feather="x" class="w-6 h-6 md:w-8 md:h-8"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto p-4 sm:p-8">
+        <div class="max-w-5xl mx-auto">
+            <p class="text-white text-sm sm:text-base mb-8 max-w-2xl">
+                Complementary equipment and business ideas that pair naturally with a water refilling station - extra income streams from the same foot traffic.
+            </p>
+            <div id="water-related-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Cards injected here via JS -->
+            </div>
+        </div>
+    </div>
+</div>
+
+    <!-- Product Details Modal -->
+    <div id="details-modal" class="fixed inset-0 z-[110] flex items-center justify-center bg-deep/80 backdrop-blur-sm p-4 sm:p-6" onclick="closeDetails(event)">
+        <div class="details-content bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl shadow-2xl flex flex-col md:flex-row relative" onclick="event.stopPropagation()">
+            <!-- Close btn -->
+            <button onclick="closeDetails()" class="absolute top-4 right-4 z-10 bg-white/80 backdrop-blur-md p-2 rounded-full text-deep hover:bg-gray-100 transition shadow-sm">
+                <i data-feather="x" class="w-5 h-5 sm:w-6 sm:h-6"></i>
+            </button>
+            
+            <!-- Image Section -->
+            <div class="w-full md:w-1/2 p-4 sm:p-6 bg-gray-50 flex flex-col rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none">
+                <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-sm border border-gray-200">
+                    <img id="detail-main-img" src="" alt="Product Image" class="absolute inset-0 w-full h-full object-cover">
+                </div>
+                <div id="detail-thumbnails" class="flex gap-2 overflow-x-auto hide-scrollbar pb-2">
+                    <!-- Thumbnails injected here -->
+                </div>
+            </div>
+            
+            <!-- Info Section -->
+            <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col pb-6 md:pb-8">
+                <span id="detail-category" class="text-xs sm:text-sm font-bold text-turquoise uppercase tracking-widest mb-2"></span>
+                <h2 id="detail-name" class="text-2xl sm:text-3xl font-bold text-deep mb-4 leading-tight"></h2>
+                <div class="text-2xl sm:text-3xl font-bold text-ocean mb-6" id="detail-price"></div>
+                
+                <h4 class="text-sm font-bold text-deep uppercase tracking-wider mb-2">Product Description</h4>
+                <p id="detail-desc" class="text-gray-600 text-sm sm:text-base leading-relaxed mb-8 flex-1"></p>
+                
+                <div class="hidden md:flex gap-4 mt-auto">
+                    <button onclick="openOrientationModal('Inquiry about ' + document.getElementById('detail-name').innerText)" title="Get a Quote" class="flex-1 bg-gradient-to-r from-ocean to-turquoise text-white py-4 rounded-xl font-bold uppercase tracking-wider shadow-lg shadow-turquoise/30 hover:-translate-y-1 transition-transform flex items-center justify-center">
+                        Get Quote
+                    </button>
+                </div>
+            </div>
+
+            <!-- Sticky mobile CTA bar: kept in thumb reach while scrolling the details.
+                 Uses `sticky`, not `fixed` — `.details-content` (its ancestor) has a CSS
+                 `transform` for the open/close animation, and a transform creates a new
+                 containing block for fixed-position descendants. That made the bar
+                 scroll along with the content instead of staying pinned to the screen.
+                 `sticky` is relative to the nearest scrolling ancestor instead, so it
+                 isn't affected by the transform and sticks correctly to the bottom of
+                 the modal's own scroll area. -->
+            <div class="md:hidden sticky bottom-0 left-0 right-0 z-20 bg-white border-t border-gray-100 p-4 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+                <button onclick="openOrientationModal('Inquiry about ' + document.getElementById('detail-name').innerText)" title="Get a Quote" class="w-full bg-gradient-to-r from-ocean to-turquoise text-white py-4 rounded-xl font-bold uppercase tracking-wider shadow-lg shadow-turquoise/30 flex items-center justify-center min-h-[44px]">
+                    Get Quote
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Shared fallback catalog (also used by admin.html) -->
+     <script src="https://unpkg.com/feather-icons"></script>
+ <script src="/catalog-defaults.js"></script>
+<script src="/site-config-defaults.js"></script>
+    <!-- Application Logic -->
+    <script>
+        // Initialize icons
+        feather.replace();
+
+        function applySiteConfig(cfg) {
+    if (!cfg) return;
+    const root = document.documentElement.style;
+    if (cfg.colors) {
+        if (cfg.colors.deep) root.setProperty('--color-deep', cfg.colors.deep);
+        if (cfg.colors.ocean) root.setProperty('--color-ocean', cfg.colors.ocean);
+        if (cfg.colors.turquoise) root.setProperty('--color-turquoise', cfg.colors.turquoise);
+        if (cfg.colors.accent) root.setProperty('--color-accent', cfg.colors.accent);
+    }
+    if (cfg.fonts) {
+        if (cfg.fonts.heading) root.setProperty('--font-heading', cfg.fonts.heading);
+        if (cfg.fonts.body) root.setProperty('--font-body', cfg.fonts.body);
+    }
+    if (cfg.logo) {
+        if (cfg.logo.size) root.setProperty('--logo-size', cfg.logo.size + 'px');
+        if (cfg.logo.top !== undefined) root.setProperty('--logo-top', cfg.logo.top + 'px');
+        if (cfg.logo.left !== undefined) root.setProperty('--logo-left', cfg.logo.left + 'px');
+    }
+    if (cfg.hero) {
+        if (cfg.hero.titleMaxSize) root.setProperty('--hero-title-max', cfg.hero.titleMaxSize + 'px');
+        if (cfg.hero.bgImage) root.setProperty('--hero-bg-image', `url('${cfg.hero.bgImage}')`);
+        const l1 = document.getElementById('hero-line1-text');
+        const l2 = document.getElementById('hero-line2-text');
+        const sub = document.getElementById('hero-subtext');
+        const p1 = document.getElementById('hero-primary-btn-label');
+        const p2 = document.getElementById('hero-secondary-btn-label');
+        if (l1 && cfg.hero.line1) l1.textContent = cfg.hero.line1;
+        if (l2 && cfg.hero.line2) l2.textContent = cfg.hero.line2;
+        if (sub && cfg.hero.subtext) sub.textContent = cfg.hero.subtext;
+        if (p1 && cfg.hero.primaryBtnLabel) p1.textContent = cfg.hero.primaryBtnLabel;
+        if (p2 && cfg.hero.secondaryBtnLabel) p2.textContent = cfg.hero.secondaryBtnLabel;
+    }
+    if (cfg.sections) {
+        const map = { packages: 'packages', whyUs: 'why-us', testimonials: 'testimonials', opportunity: 'opportunity' };
+        Object.keys(map).forEach(key => {
+            const el = document.getElementById(map[key]);
+            if (el) el.style.display = (cfg.sections[key] === false) ? 'none' : '';
+        });
+    }
+    if (cfg.footer) {
+        const tag = document.getElementById('footer-tagline');
+        const addr = document.getElementById('footer-address');
+        const email = document.getElementById('footer-email');
+        const ph1 = document.getElementById('footer-phone1');
+        const ph2 = document.getElementById('footer-phone2');
+        if (tag && cfg.footer.tagline) tag.textContent = cfg.footer.tagline;
+        if (addr && cfg.footer.address) addr.innerHTML = cfg.footer.address.replace(/\n/g, '<br/>');
+        if (email && cfg.footer.email) email.textContent = cfg.footer.email;
+        if (ph1 && cfg.footer.phone1) ph1.textContent = cfg.footer.phone1;
+        if (ph2 && cfg.footer.phone2) ph2.textContent = cfg.footer.phone2;
+    }
+}
+applySiteConfig(window.DEFAULT_SITE_CONFIG);
+
+        // Product Catalog Data - starts from the shared bundled defaults;
+        // loadLiveCatalog() below overwrites this with the live Blob data if one exists.
+        // Guard against catalog-defaults.js failing to load (404 / wrong path / opened as a
+        // local file without a server) so a missing script can't take down the whole page.
+        let products = (window.DEFAULT_PRODUCTS || []).slice();
+        if (!window.DEFAULT_PRODUCTS) {
+            console.warn('catalog-defaults.js did not load — /catalog-defaults.js is missing or unreachable. Catalog will be empty until it is fixed or the live catalog loads.');
+        }
+
+        let currentCategory = 'All';
+        let currentSubCategory = 'All';
+        const PRODUCTS_PER_BATCH = 12;
+        let visibleCount = PRODUCTS_PER_BATCH;
+        const grid = document.getElementById('product-grid');
+        const searchInput = document.getElementById('searchInput');
+        const subcategoryTabs = document.getElementById('subcategory-tabs');
+        const scrollStatus = document.getElementById('infinite-scroll-status');
+        const scrollSentinel = document.getElementById('scroll-sentinel');
+
+        function getFilteredProducts(searchQuery = '') {
+            const q = searchQuery.toLowerCase();
+            return products.filter(p => {
+                const matchCategory = currentCategory === 'All' || p.category === currentCategory;
+                const matchSubCategory = currentCategory !== 'Consumables' || currentSubCategory === 'All' || p.subCategory === currentSubCategory;
+                const matchSearch = p.name.toLowerCase().includes(q) || p.desc.toLowerCase().includes(q);
+                return matchCategory && matchSubCategory && matchSearch;
+            });
+        }
+
+        function productCardHTML(p) {
+            return `
+    <div class="relative pt-[75%] overflow-hidden bg-gray-50">
+        <img src="${p.images[0]}" alt="${p.name}" loading="lazy" width="400" height="300" onerror="this.src='https://images.unsplash.com/photo-1544485547-5d1e67c87c7e?auto=format&fit=crop&q=80&w=600'" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105">
+    </div>
+    <div class="p-3 md:p-4 flex-1 flex flex-col bg-white">
+        <span class="text-[9px] sm:text-[10px] font-bold text-ocean mb-0.5 uppercase tracking-widest leading-tight">${p.category}</span>
+        <h3 class="text-deep font-bold text-[13px] sm:text-base leading-tight mb-1 group-hover:text-turquoise transition-colors line-clamp-2">${p.name}</h3>
+        <p class="text-[11px] text-gray-500 line-clamp-2 mb-2 flex-1 leading-relaxed">${p.desc}</p>
+        <div class="flex items-center justify-between mt-auto pt-2 border-t border-gray-50">
+            <span class="text-sm sm:text-base font-black text-deep truncate tracking-tight">${p.price}</span>
+            <span class="text-[10px] font-bold text-ocean uppercase tracking-wide whitespace-nowrap flex items-center gap-0.5">Ask Price <i data-feather="arrow-right" class="w-3 h-3"></i></span>
+        </div>
+    </div>
+`;
+        }
+
+        // Renders the current filtered set from scratch (used on filter/search change).
+        function renderProducts(searchQuery = '') {
+            grid.innerHTML = '';
+            visibleCount = PRODUCTS_PER_BATCH;
+            appendNextBatch(searchQuery, true);
+        }
+
+        // Appends the next batch of cards for infinite scroll. `reset` means we just
+        // cleared the grid and this is the first batch for a new filter/search.
+        function appendNextBatch(searchQuery, reset) {
+            const filtered = getFilteredProducts(searchQuery !== undefined ? searchQuery : searchInput.value);
+
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full flex flex-col items-center justify-center py-32 text-white/60">
+                        <i data-feather="search" class="w-12 h-12 mb-4 text-gray-600"></i>
+                        <p class="text-xl">No products found for your search.</p>
+                    </div>`;
+                feather.replace();
+                scrollStatus.textContent = '';
+                return;
+            }
+
+            const startIdx = reset ? 0 : grid.querySelectorAll('.product-card').length;
+            const endIdx = Math.min(startIdx + PRODUCTS_PER_BATCH, filtered.length);
+            const pageItems = filtered.slice(startIdx, endIdx);
+
+            const frag = document.createDocumentFragment();
+            pageItems.forEach(p => {
+                const card = document.createElement('div');
+                card.className = "product-card rounded-2xl overflow-hidden flex flex-col group cursor-pointer h-full";
+                card.setAttribute('onclick', `showProductDetails(${p.id}, event)`);
+                card.innerHTML = productCardHTML(p);
+                frag.appendChild(card);
+            });
+            grid.appendChild(frag);
+
+            feather.replace();
+
+            const shown = grid.querySelectorAll('.product-card').length;
+            scrollStatus.textContent = shown < filtered.length ? 'Loading more products…' : (filtered.length > PRODUCTS_PER_BATCH ? "You've reached the end." : '');
+        }
+
+        // IntersectionObserver drives infinite scroll: when the sentinel div at the
+        // bottom of the grid comes near the viewport, load the next batch. Replaces
+        // the old click-to-page pagination, which used sub-44px tap targets.
+        const scrollObserver = new IntersectionObserver((entries) => {
+            if (!catalogRendered) return;
+            if (entries[0].isIntersecting) {
+                appendNextBatch(searchInput.value, false);
+            }
+        }, { rootMargin: '400px' });
+        scrollObserver.observe(scrollSentinel);
+
+        function buildDetailsThumbnails(images) {
+            const container = document.getElementById('detail-thumbnails');
+            container.innerHTML = '';
+            images.forEach((img, idx) => {
+                const btn = document.createElement('button');
+                btn.className = `w-16 h-16 rounded-xl overflow-hidden border-2 ${idx === 0 ? 'border-turquoise' : 'border-transparent'} transition-all`;
+                btn.onclick = () => {
+                    document.getElementById('detail-main-img').src = img;
+                    Array.from(container.children).forEach(c => c.classList.remove('border-turquoise'));
+                    btn.classList.add('border-turquoise');
+                };
+                
+                const imgEl = document.createElement('img');
+                imgEl.src = img;
+                imgEl.className = "w-full h-full object-cover";
+                btn.appendChild(imgEl);
+                container.appendChild(btn);
+            });
+        }
+
+        function showProductDetails(id, event) {
+            if (event) event.stopPropagation();
+            const p = products.find(prod => prod.id === id);
+            if (p) {
+                document.getElementById('detail-main-img').src = p.images[0];
+                document.getElementById('detail-category').innerText = p.category;
+                document.getElementById('detail-name').innerText = p.name;
+                document.getElementById('detail-price').innerText = p.price;
+                document.getElementById('detail-desc').innerText = p.desc;
+                buildDetailsThumbnails(p.images);
+                
+                document.getElementById('details-modal').classList.add('open');
+                pushModalHistory('details');
+                feather.replace(); // just in case
+            }
+        }
+        
+        function closeDetails(event) {
+            if(event && event.target !== event.currentTarget) return; // avoid closing when clicking inside content
+            document.getElementById('details-modal').classList.remove('open');
+            popModalHistoryIfNeeded('details');
+        }
+
+        function filterCategory(category, btnElement) {
+            currentCategory = category;
+            currentSubCategory = 'All';
+
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-turquoise');
+                btn.classList.add('text-white/50');
+            });
+
+            btnElement.classList.add('active', 'text-turquoise');
+            btnElement.classList.remove('text-white/50');
+
+            // Show sub-category tabs only for Consumables, and reset their active state
+            if (category === 'Consumables') {
+                subcategoryTabs.classList.remove('hidden');
+                document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+                    btn.classList.remove('active', 'bg-ocean', 'text-white');
+                    btn.classList.add('bg-white/10', 'text-white/60');
+                });
+                const allSubBtn = subcategoryTabs.querySelector('.sub-tab-btn');
+                allSubBtn.classList.add('active', 'bg-ocean', 'text-white');
+                allSubBtn.classList.remove('bg-white/10', 'text-white/60');
+            } else {
+                subcategoryTabs.classList.add('hidden');
+            }
+
+            renderProducts(searchInput.value);
+        }
+
+        function filterSubCategory(subCategory, btnElement) {
+            currentSubCategory = subCategory;
+
+            document.querySelectorAll('.sub-tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-ocean', 'text-white');
+                btn.classList.add('bg-white/10', 'text-white/60');
+            });
+
+            btnElement.classList.add('active', 'bg-ocean', 'text-white');
+            btnElement.classList.remove('bg-white/10', 'text-white/60');
+
+            renderProducts(searchInput.value);
+        }
+
+        // Debounce search input so filtering doesn't run on every single keystroke —
+        // noticeable lag on slower phones once the catalog grows past ~150 items.
+        let searchDebounceTimer = null;
+        searchInput.addEventListener('input', (e) => {
+            clearTimeout(searchDebounceTimer);
+            const value = e.target.value;
+            searchDebounceTimer = setTimeout(() => renderProducts(value), 200);
+        });
+
+        
+       // Overlay/Modal Logic
+    const modal = document.getElementById('product-modal');
+       let catalogRendered = false;
+
+
+function openGallery() {
+    if (!catalogRendered) {
+        renderProducts();
+        catalogRendered = true;
+    }
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    pushModalHistory('gallery');
+}
+        function closeGallery() {
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+    popModalHistoryIfNeeded('gallery');
+}
+
+            // ---- Other Water Related Products Modal ----
+function renderWaterRelatedProducts() {
+    const grid = document.getElementById('water-related-grid');
+    const items = products.filter(p => p.category === 'Water Related Products');
+    grid.innerHTML = items.map(p => `
+        <div class="product-card rounded-2xl overflow-hidden flex flex-col group cursor-pointer" onclick="showProductDetails(${p.id}, event)">
+            <div class="relative pt-[65%] overflow-hidden bg-gray-50">
+                <img src="${p.images[0]}" alt="${p.name}" loading="lazy" width="600" height="400" onerror="this.src='https://images.unsplash.com/photo-1544485547-5d1e67c87c7e?auto=format&fit=crop&q=80&w=600'" class="absolute inset-0 w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105">
+            </div>
+            <div class="p-5 md:p-6 flex-1 flex flex-col bg-white">
+                <h3 class="text-deep font-bold text-lg leading-tight mb-2 group-hover:text-turquoise transition-colors">${p.name}</h3>
+                <p class="text-sm text-gray-500 leading-relaxed mb-4 flex-1">${p.desc}</p>
+                <span class="text-lg font-black text-deep">${p.price}</span>
+            </div>
+        </div>
+    `).join('');
+    feather.replace();
+}
+
+function openWaterRelatedModal() {
+    renderWaterRelatedProducts();
+    document.getElementById('water-related-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    pushModalHistory('water-related');
+    feather.replace();
+}
+
+function closeWaterRelatedModal() {
+    document.getElementById('water-related-modal').classList.remove('open');
+    document.body.style.overflow = '';
+    popModalHistoryIfNeeded('water-related');
+    // Reset scroll so reopening doesn't land mid-list
+    const scrollArea = document.querySelector('#water-related-modal .flex-1.overflow-y-auto');
+    if (scrollArea) scrollArea.scrollTo({ top: 0, behavior: 'auto' });
+}
+
+        // ---- Image Preview Modal (Card 2 filter buttons: Regular / Premium-Ultrafine / 2N1) ----
+        // These were referenced by onclick="openImageModal(...)" / "closeImageModal(...)" in
+        // the HTML and by the #image-preview-modal markup, but were never defined — so the
+        // buttons looked clickable but did nothing. Defining them here is the actual fix.
+        function openImageModal(src, title) {
+            const imgModal = document.getElementById('image-preview-modal');
+            document.getElementById('modal-preview-img').src = src;
+            document.getElementById('modal-preview-img').alt = title || '';
+            document.getElementById('modal-preview-title').innerText = title || '';
+            imgModal.classList.remove('invisible', 'opacity-0');
+            imgModal.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            pushModalHistory('image-preview');
+        }
+
+        function closeImageModal(event) {
+            if (event && event.target !== event.currentTarget) return; // ignore clicks inside the content box
+            const imgModal = document.getElementById('image-preview-modal');
+            imgModal.classList.remove('open');
+            imgModal.classList.add('invisible', 'opacity-0');
+            document.body.style.overflow = '';
+            popModalHistoryIfNeeded('image-preview');
+        }
+        
+        // ---- Mobile Dropdown Menu ----
+        function toggleMobileMenu(forceClose) {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            const isOpen = menu.dataset.open === 'true';
+            const shouldOpen = forceClose === true ? false : !isOpen;
+
+            if (shouldOpen) {
+                menu.dataset.open = 'true';
+                menu.classList.remove('opacity-0', 'scale-95', 'pointer-events-none');
+                menu.classList.add('opacity-100', 'scale-100', 'pointer-events-auto');
+                btn.innerHTML = '<i data-feather="x" class="w-6 h-6 sm:w-7 sm:h-7"></i>';
+            } else {
+                menu.dataset.open = 'false';
+                menu.classList.remove('opacity-100', 'scale-100', 'pointer-events-auto');
+                menu.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+                btn.innerHTML = '<i data-feather="menu" class="w-6 h-6 sm:w-7 sm:h-7"></i>';
+            }
+            feather.replace();
+        }
+
+        // Close the dropdown when clicking anywhere outside of it
+        document.addEventListener('click', (e) => {
+            const menu = document.getElementById('mobile-menu');
+            const btn = document.getElementById('mobile-menu-btn');
+            if (menu.dataset.open === 'true' && !menu.contains(e.target) && !btn.contains(e.target)) {
+                toggleMobileMenu(true);
+            }
+        });
+
+        // ---- Mobile hardware/gesture back-button support ----
+        // Each modal open pushes a history entry so Android's back gesture/button
+        // closes the topmost modal instead of navigating away from the page.
+        // suppressNextPopClose guards against double-closing when we already closed
+        // the modal via its own close button (which calls history.back() itself).
+        let modalHistoryStack = [];
+        function pushModalHistory(name) {
+            modalHistoryStack.push(name);
+            history.pushState({ pearlsModal: name }, '');
+        }
+        function popModalHistoryIfNeeded(name) {
+            const idx = modalHistoryStack.lastIndexOf(name);
+            if (idx !== -1) {
+                modalHistoryStack.splice(idx, 1);
+                if (history.state && history.state.pearlsModal === name) {
+                    history.back();
+                }
+            }
+        }
+        window.addEventListener('popstate', () => {
+            // Close whatever modal is currently open, topmost first, without
+            // re-pushing history (we're responding to a back navigation already).
+            if (document.getElementById('image-preview-modal').classList.contains('open')) {
+                document.getElementById('image-preview-modal').classList.remove('open');
+                document.getElementById('image-preview-modal').classList.add('invisible', 'opacity-0');
+                document.body.style.overflow = '';
+                modalHistoryStack = modalHistoryStack.filter(m => m !== 'image-preview');
+                return;
+            }
+            if (document.getElementById('details-modal').classList.contains('open')) {
+                document.getElementById('details-modal').classList.remove('open');
+                modalHistoryStack = modalHistoryStack.filter(m => m !== 'details');
+                return;
+            }
+            if (document.getElementById('orientation-modal').classList.contains('open')) {
+                document.getElementById('orientation-modal').classList.remove('open');
+                document.body.style.overflow = '';
+                modalHistoryStack = modalHistoryStack.filter(m => m !== 'orientation');
+                return;
+            }
+            if (document.getElementById('water-related-modal').classList.contains('open')) {
+                document.getElementById('water-related-modal').classList.remove('open');
+                document.body.style.overflow = '';
+                modalHistoryStack = modalHistoryStack.filter(m => m !== 'water-related');
+                return;
+            }
+            if (modal.classList.contains('open')) {
+                modal.classList.remove('open');
+                document.body.style.overflow = '';
+                modalHistoryStack = modalHistoryStack.filter(m => m !== 'gallery');
+                return;
+            }
+            const mobileMenuEl = document.getElementById('mobile-menu');
+            if (mobileMenuEl.dataset.open === 'true') {
+                toggleMobileMenu(true);
+            }
+        });
+
+        // Close gallery on Escape key press
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Escape') return;
+
+            const mobileMenuEl = document.getElementById('mobile-menu');
+            if (mobileMenuEl.dataset.open === 'true') {
+                toggleMobileMenu(true);
+                return;
+            }
+
+            const orientationModal = document.getElementById('orientation-modal');
+            if (orientationModal.classList.contains('open')) {
+                closeOrientationModal();
+                return;
+            }
+
+            const waterRelatedModal = document.getElementById('water-related-modal');
+if (waterRelatedModal.classList.contains('open')) {
+    closeWaterRelatedModal();
+    return;
+}
+
+            const detailsModal = document.getElementById('details-modal');
+            if (detailsModal.classList.contains('open')) {
+                closeDetails();
+                return;
+            }
+
+            const imagePreviewModal = document.getElementById('image-preview-modal');
+            if (imagePreviewModal.classList.contains('open')) {
+                closeImageModal();
+                return;
+            }
+
+            if (modal.classList.contains('open')) {
+                closeGallery();
+                document.body.style.overflow = '';
+            }
+        });
+
+        // ---- Orientation Request Form (submits to Google Sheets via Apps Script) ----
+
+        // Replace this with your deployed Google Apps Script Web App URL.
+        // See the deployment instructions provided alongside this file.
+        const ORIENTATION_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSxomE1ozGW_G6-Fn5P86Dk9LhgYBr4isZI84eSr0ToWQ0cPs-JcV6nJZK9fUpXQsQ/exec";
+
+function openOrientationModal(context, presetProducts) {
+    const messageField = document.getElementById('orient-message');
+    // Always sync the message to whichever button was clicked, instead of
+    // only filling it when empty — otherwise a stale message from a
+    // previous "Inquire Now" click sticks around on Contact/Get a Quote.
+    messageField.value = context ? ('Interested in: ' + context) : '';
+
+    // Reset, then check any presets — so re-opening from a different
+    // trigger doesn't leave stale checkboxes ticked.
+    document.querySelectorAll('input[name="productsInquiry"]').forEach(cb => {
+        cb.checked = Array.isArray(presetProducts) && presetProducts.includes(cb.value);
+    });
+
+    document.getElementById('orientation-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    pushModalHistory('orientation');
+    feather.replace();
+}
+
+        function closeOrientationModal(event) {
+            if (event && event.target !== event.currentTarget) return; // don't close on inner clicks
+            document.getElementById('orientation-modal').classList.remove('open');
+            document.body.style.overflow = '';
+            popModalHistoryIfNeeded('orientation');
+        }
+
+        function setOrientationStatus(message, type) {
+            const statusEl = document.getElementById('orient-status');
+            statusEl.textContent = message;
+            statusEl.classList.remove('hidden', 'bg-green-50', 'text-green-700', 'bg-red-50', 'text-red-700');
+            if (type === 'success') {
+                statusEl.classList.add('bg-green-50', 'text-green-700');
+            } else if (type === 'error') {
+                statusEl.classList.add('bg-red-50', 'text-red-700');
+            }
+        }
+
+function submitOrientationForm(event) {
+    event.preventDefault();
+
+    if (ORIENTATION_SCRIPT_URL.indexOf('PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') !== -1) {
+        setOrientationStatus('Form is not connected yet. Please add your Google Apps Script Web App URL in the code (ORIENTATION_SCRIPT_URL).', 'error');
+        return;
+    }
+
+    const form = document.getElementById('orientation-form');
+    const submitBtn = document.getElementById('orient-submit-btn');
+    const submitLabel = document.getElementById('orient-submit-label');
+
+    const selectedProducts = Array.from(document.querySelectorAll('input[name="productsInquiry"]:checked'))
+        .map(cb => cb.value)
+        .join(', ');
+
+    const payload = {
+        firstName: document.getElementById('orient-firstname').value.trim(),
+        lastName: document.getElementById('orient-lastname').value.trim(),
+        contactNo: document.getElementById('orient-contact').value.trim(),
+        productsInquiry: selectedProducts,
+        schedule: document.getElementById('orient-schedule').value,
+        message: document.getElementById('orient-message').value.trim()
+    };
+
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'Submitting...';
+    setOrientationStatus('', null);
+    document.getElementById('orient-status').classList.add('hidden');
+
+    // text/plain avoids a CORS preflight AND survives the redirect Apps
+    // Script issues on POST — multipart FormData does not.
+    fetch(ORIENTATION_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+    }).then(() => {
+        setOrientationStatus('Thank you! Your orientation request has been received. Our team will contact you shortly.', 'success');
+        form.reset(); // clears text fields AND unchecks all productsInquiry boxes
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Submit Request';
+        setTimeout(() => { closeOrientationModal(); }, 2200);
+    }).catch(() => {
+        setOrientationStatus('Something went wrong sending your request. Please try again or email us directly.', 'error');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Submit Request';
+    });
+}
+        // Enable mouse-drag scrolling and vertical-wheel-to-horizontal-scroll
+        // on any row with the .drag-scroll class (the category & sub-category tab bars).
+        // This fixes the issue where desktop mouse users had no way to reach tabs
+        // that overflow past the visible width, since the scrollbar is hidden and
+        // only touchpad/touch swipes worked by default.
+        function enableDragScroll(el) {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+            let moved = false;
+
+            el.addEventListener('mousedown', (e) => {
+                isDown = true;
+                moved = false;
+                el.classList.add('dragging');
+                startX = e.pageX - el.offsetLeft;
+                scrollLeft = el.scrollLeft;
+            });
+
+            const stopDrag = () => {
+                isDown = false;
+                el.classList.remove('dragging');
+            };
+
+            el.addEventListener('mouseleave', stopDrag);
+            el.addEventListener('mouseup', stopDrag);
+
+            el.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - el.offsetLeft;
+                const walk = x - startX;
+                if (Math.abs(walk) > 5) moved = true;
+                el.scrollLeft = scrollLeft - walk;
+            });
+
+            // Prevent the click from firing on the button if the user was dragging
+            el.addEventListener('click', (e) => {
+                if (moved) {
+                    e.stopPropagation();
+                    e.preventDefault();
+                }
+            }, true);
+
+            // Let a vertical mouse wheel scroll the row horizontally too
+            el.addEventListener('wheel', (e) => {
+                if (e.deltaY !== 0 && Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+                    e.preventDefault();
+                    el.scrollLeft += e.deltaY;
+                }
+            }, { passive: false });
+        }
+
+document.querySelectorAll('.drag-scroll').forEach(enableDragScroll);
+
+
+    </script>
+    <!-- Image Preview Modal - MUST be outside all cards -->
+<div id="image-preview-modal" 
+     class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm opacity-0 invisible transition-all duration-300"
+     onclick="closeImageModal(event)">
+  
+  <div class="relative max-w-4xl w-full max-h-[90vh] bg-white rounded-2xl overflow-hidden shadow-2xl transform scale-95 transition-transform duration-300"
+       onclick="event.stopPropagation()">
+    
+    <button onclick="closeImageModal()" 
+            class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 hover:bg-black/70 text-white flex items-center justify-center transition-colors">
+      <i data-feather="x" class="w-5 h-5"></i>
+    </button>
+
+    <img id="modal-preview-img" src="" alt="" class="w-full h-auto max-h-[80vh] object-contain">
+
+    <div class="p-4 text-center bg-gray-50">
+      <h3 id="modal-preview-title" class="text-lg font-bold text-deep"></h3>
+    </div>
+  </div>
+</div>
+</body>
+</html>
