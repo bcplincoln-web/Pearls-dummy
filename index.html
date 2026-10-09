@@ -22,9 +22,9 @@
     --font-body: 'Inter', sans-serif;
     --hero-title-max: 110px;
     --hero-bg-image: url('/spl4.webp');
-    --logo-size: 235px;
-    --logo-top: -30px;
-    --logo-left: 44px;
+    --logo-size: 180px;
+    --logo-top: 12px;
+    --logo-left: 24px;
 }
 h1, h2, h3 { font-family: var(--font-heading), var(--font-body); }
 
@@ -42,6 +42,75 @@ h1, h2, h3 { font-family: var(--font-heading), var(--font-body); }
         width: 56px !important;
     }
 }
+
+/* ---- Added: larger logo sizing per viewport (placed after the rule above so it takes precedence) ---- */
+#logo-link {
+    /* Desktop / large laptop default — slightly larger & clearer of the top edge */
+    top: -50px !important;
+    left: 24px !important;
+    height: 350px !important;
+    width: 350px !important;
+}
+@media (min-width: 1280px) {
+    #logo-link {
+        top: -50px !important;
+        left: 32px !important;
+        height: 350px !important;
+        width: 350px !important;
+    }
+}
+@media (max-width: 1023px) {
+    #logo-link {
+        top: -20px !important;
+        left: 16px !important;
+        height: 210px !important;
+        width: 210px !important;
+    }
+}
+@media (max-width: 640px) {
+    #logo-link {
+        top: -10px !important;
+        left: 10px !important;
+        height: 200px !important;
+        width: 200px !important;
+    }
+}
+
+/* Auto-hide top nav (keeps horizontal center) */
+nav.fixed {
+    transition: transform 0.35s ease, opacity 0.35s ease !important;
+}
+nav.fixed.nav-hidden {
+    transform: translate(-0%, -150%) !important; /* still centered on X, just slides up */
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Hero title / subtitle / buttons sit lower on every viewport so they clear logo + nav */
+header.hero-bg > div {
+    padding-top: 10rem !important;          /* phones */
+}
+@media (min-width: 640px) {
+    header.hero-bg > div {
+        padding-top: 11rem !important;      /* large phones / small tablets */
+    }
+}
+@media (min-width: 768px) {
+    header.hero-bg > div {
+        padding-top: 12.5rem !important;    /* tablets */
+    }
+}
+@media (min-width: 1024px) {
+    header.hero-bg > div {
+        padding-top: 14rem !important;      /* laptops */
+    }
+}
+@media (min-width: 1280px) {
+    header.hero-bg > div {
+        padding-top: 16rem !important;      /* large desktops */
+    }
+}
+
 body { 
     font-family: var(--font-body); 
     background-color: #cbd7e5; 
@@ -229,6 +298,10 @@ body {
             scale: 1;
         }
     </style>
+    <script>
+    window.va = window.va || function () { (window.va.q = window.va.q || []).push(arguments); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
 
@@ -238,7 +311,7 @@ body {
 </a>
 
 <!-- Navbar: fixed top, centered, independent of the logo -->
-<nav class="fixed top-3 sm:top-5 left-1/2 -translate-x-1/2 z-50 glass-panel transition-all duration-300 h-11 sm:h-12 rounded-full w-fit max-w-[calc(100%-1.5rem)] sm:max-w-[calc(100%-3rem)]">
+<nav class="fixed top-20 sm:top-25 left-1/2 -translate-x-1/2 z-50 glass-panel transition-all duration-300 h-11 sm:h-12 rounded-full w-fit max-w-[calc(100%-1.5rem)] sm:max-w-[calc(100%-3rem)]">
     <div class="px-4 sm:px-6 h-full">
         <div class="flex justify-end items-center h-full gap-6 sm:gap-8">
 
@@ -284,24 +357,23 @@ body {
      <main>
 <header class="relative flex-1 flex items-center justify-start min-h-[90vh] hero-bg pb-24 overflow-hidden">
             
-    <div class="relative z-10 text-left px-4 sm:px-10 lg:px-20 max-w-3xl flex flex-col items-start lg:pt-52">
+    <div class="relative z-10 text-center px-4 sm:px-10 lg:px-20 max-w-12xl flex flex-col items-center mx-auto">
             
   <h1 class="hero-title mb-6 text-white" style="text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.5);">
-    <span id="hero-line1-text">Safe, Clean and</span><br/>
-    <span id="hero-line2-text" class="text-turquoise" style="text-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.5);">Quality Water.</span>
+    <span id="hero-line1-text">Safe, Clean and </span><br/><span id="hero-line2-text" class="text-turquoise" style="text-shadow: 0 4px 24px rgba(0,0,0,0.6), 0 2px 8px rgba(0,0,0,0.5);">Quality Water.</span>
 </h1>
 
-<p id="hero-subtext" class="text-lg md:text-2xl text-white/90 mb-14 max-w-2xl leading-relaxed font-light" style="text-shadow: 0 2px 12px rgba(0,0,0,0.5);">
+<p id="hero-subtext" class="text-lg md:text-2xl text-blue/90 mb-14 max-w-2xl leading-relaxed font-light" style="text-shadow: 0 4px 15px rgb(255, 254, 254);">
     Embrace the cutting-edge design of a safer and healthier water treatment systems provider.
 </p>
             
-            <div class="flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-6 w-full">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6 w-full">
                 <!-- Primary CTA -->
            <button onclick="openGallery()" class="glow-btn border-none outline-none overflow-hidden transform-gpu px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-ocean to-turquoise text-white rounded-full font-bold text-base sm:text-lg uppercase tracking-wider transition-all w-full sm:w-auto shadow-lg shadow-turquoise/40 flex justify-center items-center">
     <span id="hero-primary-btn-label">Check Our Products</span>
 </button>
 
-<button onclick="openOrientationModal('General Quote Request')" class="px-8 sm:px-10 py-4 sm:py-5 bg-white/5 backdrop-blur-sm border-2 border-white/30 hover:border-white hover:bg-white hover:text-ocean text-white rounded-full font-bold text-base sm:text-lg uppercase tracking-wider transition-all w-full sm:w-auto hover:-translate-y-1 shadow-lg flex justify-center items-center">
+<button onclick="openOrientationModal('General Quote Request')" class="glow-btn border-none outline-none overflow-hidden transform-gpu px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-ocean to-turquoise text-white rounded-full font-bold text-base sm:text-lg uppercase tracking-wider transition-all w-full sm:w-auto shadow-lg shadow-turquoise/40 flex justify-center items-center">
     <span id="hero-secondary-btn-label">Get a Quote</span>
 </button>
             </div>
@@ -846,6 +918,58 @@ body {
         // Initialize icons
         feather.replace();
 
+        // ---- Auto-hide top nav ----
+const topNav = document.querySelector('nav.fixed');
+const heroSection = document.querySelector('header.hero-bg');
+let lastScrollY = window.scrollY;
+let isHoveringTop = false;
+
+function updateNavVisibility() {
+    const heroBottom = heroSection ? heroSection.offsetHeight : 600;
+    const scrollY = window.scrollY;
+    const isInHero = scrollY < heroBottom - 80;
+    const isScrollingUp = scrollY < lastScrollY;
+    const isNearTop = scrollY < 80;
+
+    // Desktop: show in hero OR when mouse is near top of screen
+    // Mobile: show when near top / scrolling up
+    const isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+
+    if (isDesktop) {
+        if (isInHero || isHoveringTop) {
+            topNav.classList.remove('nav-hidden');
+        } else {
+            topNav.classList.add('nav-hidden');
+        }
+    } else {
+        // Mobile: show at top or when scrolling up
+        if (isNearTop || (isScrollingUp && scrollY < heroBottom)) {
+            topNav.classList.remove('nav-hidden');
+        } else {
+            topNav.classList.add('nav-hidden');
+        }
+    }
+
+    lastScrollY = scrollY;
+}
+
+window.addEventListener('scroll', updateNavVisibility, { passive: true });
+
+// Desktop: show nav when mouse moves near the top of the viewport
+document.addEventListener('mousemove', (e) => {
+    if (window.matchMedia('(min-width: 1024px)').matches) {
+        // Larger top zone + also stay visible while mouse is over the nav itself
+        const navRect = topNav.getBoundingClientRect();
+        const overNav = e.clientY >= navRect.top && e.clientY <= navRect.bottom &&
+                        e.clientX >= navRect.left && e.clientX <= navRect.right;
+        isHoveringTop = e.clientY < 180 || overNav;
+        updateNavVisibility();
+    }
+});
+
+// Run once on load
+updateNavVisibility();
+
         function applySiteConfig(cfg) {
     if (!cfg) return;
     const root = document.documentElement.style;
@@ -1211,58 +1335,72 @@ function closeWaterRelatedModal() {
         // closes the topmost modal instead of navigating away from the page.
         // suppressNextPopClose guards against double-closing when we already closed
         // the modal via its own close button (which calls history.back() itself).
-        let modalHistoryStack = [];
-        function pushModalHistory(name) {
-            modalHistoryStack.push(name);
-            history.pushState({ pearlsModal: name }, '');
+let modalHistoryStack = [];
+let programmaticPops = 0; // counts history.back() calls made by our own code
+
+function pushModalHistory(name) {
+    modalHistoryStack.push(name);
+    history.pushState({ pearlsModal: name }, '');
+}
+
+function popModalHistoryIfNeeded(name) {
+    const idx = modalHistoryStack.lastIndexOf(name);
+    if (idx !== -1) {
+        modalHistoryStack.splice(idx, 1);
+        if (history.state && history.state.pearlsModal === name) {
+            programmaticPops++;   // tell popstate this one is ours
+            history.back();
         }
-        function popModalHistoryIfNeeded(name) {
-            const idx = modalHistoryStack.lastIndexOf(name);
-            if (idx !== -1) {
-                modalHistoryStack.splice(idx, 1);
-                if (history.state && history.state.pearlsModal === name) {
-                    history.back();
-                }
-            }
-        }
-        window.addEventListener('popstate', () => {
-            // Close whatever modal is currently open, topmost first, without
-            // re-pushing history (we're responding to a back navigation already).
-            if (document.getElementById('image-preview-modal').classList.contains('open')) {
-                document.getElementById('image-preview-modal').classList.remove('open');
-                document.getElementById('image-preview-modal').classList.add('invisible', 'opacity-0');
-                document.body.style.overflow = '';
-                modalHistoryStack = modalHistoryStack.filter(m => m !== 'image-preview');
-                return;
-            }
-            if (document.getElementById('details-modal').classList.contains('open')) {
-                document.getElementById('details-modal').classList.remove('open');
-                modalHistoryStack = modalHistoryStack.filter(m => m !== 'details');
-                return;
-            }
-            if (document.getElementById('orientation-modal').classList.contains('open')) {
-                document.getElementById('orientation-modal').classList.remove('open');
-                document.body.style.overflow = '';
-                modalHistoryStack = modalHistoryStack.filter(m => m !== 'orientation');
-                return;
-            }
-            if (document.getElementById('water-related-modal').classList.contains('open')) {
-                document.getElementById('water-related-modal').classList.remove('open');
-                document.body.style.overflow = '';
-                modalHistoryStack = modalHistoryStack.filter(m => m !== 'water-related');
-                return;
-            }
-            if (modal.classList.contains('open')) {
-                modal.classList.remove('open');
-                document.body.style.overflow = '';
-                modalHistoryStack = modalHistoryStack.filter(m => m !== 'gallery');
-                return;
-            }
-            const mobileMenuEl = document.getElementById('mobile-menu');
-            if (mobileMenuEl.dataset.open === 'true') {
-                toggleMobileMenu(true);
-            }
-        });
+    }
+}
+
+window.addEventListener('popstate', () => {
+    // We already closed the modal ourselves, so do nothing
+    if (programmaticPops > 0) {
+        programmaticPops--;
+        return;
+    }
+
+    // Real back button / swipe: close only the topmost open modal
+    const orientation = document.getElementById('orientation-modal');
+    if (orientation.classList.contains('open')) {
+        orientation.classList.remove('open');
+        document.body.style.overflow = document.getElementById('product-modal').classList.contains('open') ? 'hidden' : '';
+        modalHistoryStack = modalHistoryStack.filter(m => m !== 'orientation');
+        return;
+    }
+    const details = document.getElementById('details-modal');
+    if (details.classList.contains('open')) {
+        details.classList.remove('open');
+        modalHistoryStack = modalHistoryStack.filter(m => m !== 'details');
+        return;
+    }
+    const imgPreview = document.getElementById('image-preview-modal');
+    if (imgPreview.classList.contains('open')) {
+        imgPreview.classList.remove('open');
+        imgPreview.classList.add('invisible', 'opacity-0');
+        document.body.style.overflow = '';
+        modalHistoryStack = modalHistoryStack.filter(m => m !== 'image-preview');
+        return;
+    }
+    const waterRelated = document.getElementById('water-related-modal');
+    if (waterRelated.classList.contains('open')) {
+        waterRelated.classList.remove('open');
+        document.body.style.overflow = '';
+        modalHistoryStack = modalHistoryStack.filter(m => m !== 'water-related');
+        return;
+    }
+    if (modal.classList.contains('open')) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        modalHistoryStack = modalHistoryStack.filter(m => m !== 'gallery');
+        return;
+    }
+    const mobileMenuEl = document.getElementById('mobile-menu');
+    if (mobileMenuEl.dataset.open === 'true') {
+        toggleMobileMenu(true);
+    }
+});
 
         // Close gallery on Escape key press
         document.addEventListener('keydown', (e) => {
@@ -1308,7 +1446,47 @@ if (waterRelatedModal.classList.contains('open')) {
 
         // Replace this with your deployed Google Apps Script Web App URL.
         // See the deployment instructions provided alongside this file.
-        const ORIENTATION_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzSxomE1ozGW_G6-Fn5P86Dk9LhgYBr4isZI84eSr0ToWQ0cPs-JcV6nJZK9fUpXQsQ/exec";
+        const ORIENTATION_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwPOWqgpzlDArltMr1k8fcoGMRHf9E5ADBIUlUK0d95Sh9tQ71u_3laGqhmaymA7zbN/exec";
+
+        let bookedSlots = [];
+
+function localISO(d) {
+    const pad = n => String(n).padStart(2, '0');
+    return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+async function loadBookedSlots() {
+    try {
+        const res = await fetch(ORIENTATION_SCRIPT_URL);
+        const data = await res.json();
+        bookedSlots = data.slots || [];
+    } catch (e) {
+        console.warn('Could not load booked slots', e);
+    }
+}
+
+function isSlotUnavailable(val) {
+    return !val || new Date(val) < new Date() || bookedSlots.includes(val.slice(0, 16));
+}
+
+function setupScheduleInput() {
+    const input = document.getElementById('orient-schedule');
+    input.min = localISO(new Date()); // yesterday and earlier can't be picked
+
+    input.onchange = () => {
+        const val = input.value;
+        if (!val) return;
+        if (new Date(val) < new Date()) {
+            input.value = '';
+            setOrientationStatus('Please choose a date and time in the future.', 'error');
+        } else if (bookedSlots.includes(val.slice(0, 16))) {
+            input.value = '';
+            setOrientationStatus('That time slot is already booked. Please pick another time.', 'error');
+        } else {
+            document.getElementById('orient-status').classList.add('hidden');
+        }
+    };
+}
 
 function openOrientationModal(context, presetProducts) {
     const messageField = document.getElementById('orient-message');
@@ -1325,6 +1503,9 @@ function openOrientationModal(context, presetProducts) {
 
     document.getElementById('orientation-modal').classList.add('open');
     document.body.style.overflow = 'hidden';
+
+    setupScheduleInput();   
+    loadBookedSlots();      
     pushModalHistory('orientation');
     feather.replace();
 }
@@ -1347,18 +1528,30 @@ function openOrientationModal(context, presetProducts) {
             }
         }
 
-function submitOrientationForm(event) {
+async function submitOrientationForm(event) {
     event.preventDefault();
 
-    if (ORIENTATION_SCRIPT_URL.indexOf('PASTE_YOUR_APPS_SCRIPT_WEB_APP_URL_HERE') !== -1) {
-        setOrientationStatus('Form is not connected yet. Please add your Google Apps Script Web App URL in the code (ORIENTATION_SCRIPT_URL).', 'error');
+    const submitBtn = document.getElementById('orient-submit-btn');
+    const submitLabel = document.getElementById('orient-submit-label');
+    submitBtn.disabled = true;
+    submitLabel.textContent = 'Checking availability...';
+
+    // Fresh check right before sending
+    const ok = await loadBookedSlots();
+    if (!ok) {
+        setOrientationStatus('Could not verify slot availability. Please try again in a moment.', 'error');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Submit Request';
+        return;
+    }
+    if (isSlotUnavailable(document.getElementById('orient-schedule').value)) {
+        setOrientationStatus('That time slot is already booked or in the past. Please pick another.', 'error');
+        submitBtn.disabled = false;
+        submitLabel.textContent = 'Submit Request';
         return;
     }
 
     const form = document.getElementById('orientation-form');
-    const submitBtn = document.getElementById('orient-submit-btn');
-    const submitLabel = document.getElementById('orient-submit-label');
-
     const selectedProducts = Array.from(document.querySelectorAll('input[name="productsInquiry"]:checked'))
         .map(cb => cb.value)
         .join(', ');
@@ -1372,13 +1565,9 @@ function submitOrientationForm(event) {
         message: document.getElementById('orient-message').value.trim()
     };
 
-    submitBtn.disabled = true;
     submitLabel.textContent = 'Submitting...';
-    setOrientationStatus('', null);
     document.getElementById('orient-status').classList.add('hidden');
 
-    // text/plain avoids a CORS preflight AND survives the redirect Apps
-    // Script issues on POST — multipart FormData does not.
     fetch(ORIENTATION_SCRIPT_URL, {
         method: 'POST',
         mode: 'no-cors',
@@ -1386,7 +1575,7 @@ function submitOrientationForm(event) {
         body: JSON.stringify(payload)
     }).then(() => {
         setOrientationStatus('Thank you! Your orientation request has been received. Our team will contact you shortly.', 'success');
-        form.reset(); // clears text fields AND unchecks all productsInquiry boxes
+        form.reset();
         submitBtn.disabled = false;
         submitLabel.textContent = 'Submit Request';
         setTimeout(() => { closeOrientationModal(); }, 2200);
