@@ -36,10 +36,10 @@ h1, h2, h3 { font-family: var(--font-heading), var(--font-body); }
    positioned logo on mobile regardless of what size the admin panel has configured. */
 @media (max-width: 640px) {
     #logo-link {
-        top: 4px !important;
-        left: 8px !important;
-        height: 130px !important;
-        width: 130px !important;
+        top: 10px !important;
+        left: 12px !important;
+        height: 56px !important;
+        width: 56px !important;
     }
 }
 body { 
@@ -228,32 +228,6 @@ body {
         #image-preview-modal.open > div {
             scale: 1;
         }
-
-        /* Hero stacking: title, then subtext, then buttons (plain CSS, no Tailwind dependency) */
-.hero-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-}
-.hero-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    width: 100%;
-}
-@media (min-width: 640px) {
-    .hero-buttons {
-        flex-direction: row;
-        align-items: center;
-        width: auto;
-    }
-}
-@media (max-width: 640px) {
-    .hero-content {
-        padding-top: 150px;
-        width: 100%;
-    }
-}
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col">
@@ -308,11 +282,9 @@ body {
 
     <!-- MAIN HERO -->
      <main>
-<div class="hero-content relative z-10 text-left px-4 sm:px-10 lg:px-20 max-w-3xl flex flex-col items-start lg:pt-52">
+<header class="relative flex-1 flex items-center justify-start min-h-[90vh] hero-bg pb-24 overflow-hidden">
             
-    <div class="relative z-10 text-left px-4 sm:px-10 lg:px-20 max-w-3xl w-full flex flex-col items-start pt-44 sm:pt-48 lg:pt-52">
-
-    </div>
+    <div class="relative z-10 text-left px-4 sm:px-10 lg:px-20 max-w-3xl flex flex-col items-start lg:pt-52">
             
   <h1 class="hero-title mb-6 text-white" style="text-shadow: 0 4px 24px rgba(0,0,0,0.55), 0 2px 8px rgba(0,0,0,0.5);">
     <span id="hero-line1-text">Safe, Clean and</span><br/>
@@ -323,7 +295,7 @@ body {
     Embrace the cutting-edge design of a safer and healthier water treatment systems provider.
 </p>
             
-            <div class="hero-buttons flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-6 w-full">
+            <div class="flex flex-col sm:flex-row items-center justify-start gap-4 sm:gap-6 w-full">
                 <!-- Primary CTA -->
            <button onclick="openGallery()" class="glow-btn border-none outline-none overflow-hidden transform-gpu px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-ocean to-turquoise text-white rounded-full font-bold text-base sm:text-lg uppercase tracking-wider transition-all w-full sm:w-auto shadow-lg shadow-turquoise/40 flex justify-center items-center">
     <span id="hero-primary-btn-label">Check Our Products</span>
